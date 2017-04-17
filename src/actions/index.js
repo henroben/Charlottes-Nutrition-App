@@ -5,7 +5,7 @@ export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
-let maxResults = 5;
+let maxResults = 6;
 let foodQuery = 'Broccoli, raw';
 let dataSource = 'Standard Reference';
 let ndbno = '11233';

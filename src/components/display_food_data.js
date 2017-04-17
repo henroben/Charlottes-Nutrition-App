@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchFood, fetchNutrients } from '../actions/index';
-import SearchFoods from './search';
-import DisplayNutrientsData from './display_nutrients_data';
 
 class DisplayFoodData extends Component {
 
@@ -31,17 +29,17 @@ class DisplayFoodData extends Component {
         const { food } = this.props.food;
 
         if (!food) {
-            return  <SearchFoods />;
+            return  <div></div>;
         }
 
         return(
-            <div>
-                <SearchFoods />
-                <h3>{food.list.q}</h3>
-                <ul className="list-group">
-                    {this.displayFoodItems(food.list.item)}
-                </ul>
-                <DisplayNutrientsData />
+            <div className="panel panel-info">
+                <div className="panel-heading">Results For: <strong>{food.list.q}</strong></div>
+                <div className="panel-body">
+                    <ul className="list-group">
+                        {this.displayFoodItems(food.list.item)}
+                    </ul>
+                </div>
             </div>
         );
     }

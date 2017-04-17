@@ -7,20 +7,25 @@ class SignUp extends Component {
             <div className="row">
                 <div className="col-sm-3"></div>
                 <div className="col-sm-6">
-                    <div className="form-group">
-                        <label htmlFor="usrname">User Name:</label>
-                        <input type="text" className="form-control" id="usrname" placeholder="Pick a user name" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="usrpassword">Enter a Password:</label>
-                        <input type="password" className="form-control" id="usrpassword" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="usrpasswordcheck">Confirm your Password:</label>
-                        <input type="password" className="form-control" id="usrpasswordcheck" />
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary btn-block">Sign Up</button>
+                    <div className="panel panel-default">
+                        <div className="panel-heading">Sign Up</div>
+                        <div className="panel-body">
+                            <div className="form-group">
+                                <label htmlFor="usrname">User Name:</label>
+                                <input type="text" className="form-control" id="usrname" placeholder="Pick a user name" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="usrpassword">Enter a Password:</label>
+                                <input type="password" className="form-control" id="usrpassword" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="usrpasswordcheck">Confirm your Password:</label>
+                                <input type="password" className="form-control" id="usrpasswordcheck" />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block">Sign Up</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="col-sm-3"></div>
