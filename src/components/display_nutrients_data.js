@@ -29,10 +29,12 @@ class DisplayNutrientData extends Component {
             return <div></div>;
         }
 
+        let measures = `${nutrients.report.food.nutrients[0].measures[0].qty} ${nutrients.report.food.nutrients[0].measures[0].label} (${nutrients.report.food.nutrients[0].measures[0].eqv} ${nutrients.report.food.nutrients[0].measures[0].eunit})`
+
         return(
             <div>
                 <div className="panel panel-success">
-                    <div className="panel-heading">{nutrients.report.food.name}</div>
+                    <div className="panel-heading">{nutrients.report.food.name} | {measures}</div>
                     <div className="panel-body">
                         <ul className="list-group">
                             <li className="list-group-item">
