@@ -1,9 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import * as Redux from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { startLogin } from './../actions/index';
 
 class SignIn extends Component {
+    componentDidUpdate() {
+        console.log('did update');
+        if(this.props.auth.uid) {
+            console.log('logged in, redirect');
+            this.props.history.push('/foodsearch');
+        }
+    }
     onSigninGit() {
         console.log('git signin called');
         let {dispatch} = this.props;
@@ -34,4 +42,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default Redux.connect()(SignIn);
+export default Redux.connect(mapStateToProps)(SignIn);

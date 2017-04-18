@@ -12,6 +12,12 @@ export default function(state = INITIAL_STATE, action) {
                 ...state,
                 uid: action.payload.user.uid
             }
+        case UNAUTH_USER:
+            console.log('signing out user');
+            return {
+                ...state,
+                uid: null
+            }
         default:
             return state;
     }

@@ -62,10 +62,16 @@ export function startLogin() {
 }
 
 export function startLogout() {
-    return function(dispatch) {
-        "use strict";
-        return firebase.auth().signOut().then(() => {
-            console.log('logged out');
-        });
-    };
+    const request = firebase.auth().signOut();
+
+    return {
+        type: UNAUTH_USER,
+        payload: request
+    }
+
+    // return function(dispatch) {
+    //     return firebase.auth().signOut().then(() => {
+    //         console.log('logged out');
+    //     });
+    // };
 }

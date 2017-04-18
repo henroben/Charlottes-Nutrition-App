@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-var {Navbar, Nav, NavItem} = require('react-bootstrap');
-var {LinkContainer, IndexLinkContainer} = require('react-router-bootstrap');
+import * as Redux from 'react-redux';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
+import { startLogout } from './../actions/index';
 
 class App extends Component {
     onSignOut() {
-        
+        let {dispatch} = this.props;
+        dispatch(startLogout());
+        this.props.history.push('/');
     }
     displayLoginDetails() {
         if(this.props.auth.uid) {
             return (
                 <Nav pullRight>
-                    {/*<LinkContainer to="/signout" activeClassName="active"><NavItem><span className="glyphicon glyphicon-user"></span> Sign Out</NavItem></LinkContainer>*/}
-                    <button onClick={this.onSignOut.bind(this)}><span className="glyphicon glyphicon-user"></span> Sign Out</button>
+                    <li>
+                        <a href="#" onClick={this.onSignOut.bind(this)}><span className="glyphicon glyphicon-user"></span> Sign Out</a>
+                    </li>
                 </Nav>
             );
         } else {
@@ -68,4 +72,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, null)(App);
+export default Redux.connect(mapStateToProps)(App);
