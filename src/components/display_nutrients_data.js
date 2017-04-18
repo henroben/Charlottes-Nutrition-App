@@ -12,9 +12,9 @@ class DisplayNutrientData extends Component {
                 return(
                     <li className="list-group-item" key={nutrient.nutrient_id}>
                         <div className="row">
-                            <div className="col-sm-4">{nutrient.name}</div>
-                            <div className="col-sm-4">{nutrient.value}</div>
-                            <div className="col-sm-4">{nutrient.unit}</div>
+                            <div className="col-xs-7">strong{nutrient.name}</div>
+                            <div className="col-xs-3">{nutrient.value}</div>
+                            <div className="col-xs-2">{nutrient.unit}</div>
                         </div>
                     </li>
                 );
@@ -24,7 +24,7 @@ class DisplayNutrientData extends Component {
 
     render() {
         const { nutrients } = this.props.nutrients;
-        console.warn('DisplayNutrientData');
+
         if (!nutrients) {
             return <div></div>;
         }
@@ -34,14 +34,14 @@ class DisplayNutrientData extends Component {
         return(
             <div>
                 <div className="panel panel-success">
-                    <div className="panel-heading">{nutrients.report.food.name} | {measures}</div>
+                    <div className="panel-heading"><h4>{nutrients.report.food.name} <br/> <small>{measures}</small> </h4></div>
                     <div className="panel-body">
                         <ul className="list-group">
                             <li className="list-group-item">
                                 <div className="row">
-                                    <div className="col-sm-4">Nutrient</div>
-                                    <div className="col-sm-4">Amount</div>
-                                    <div className="col-sm-4">Units</div>
+                                    <div className="col-xs-7"><strong>Nutrient</strong></div>
+                                    <div className="col-xs-3"><strong>Amount</strong></div>
+                                    <div className="col-xs-2"><strong>Units</strong></div>
                                 </div>
                             </li>
                             {this.displayNutrients(nutrients.report.food.nutrients)}

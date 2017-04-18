@@ -6,6 +6,7 @@
   "repository": "",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build": "webpack -p",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
@@ -28,6 +29,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "babel-preset-stage-1": "^6.1.18",
+    "firebase": "^3.7.8",
     "lodash": "^3.10.1",
     "react": "^0.14.3",
     "react-bootstrap": "^0.30.8",

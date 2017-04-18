@@ -3,11 +3,20 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import DisplayHomePage from './components/display_home_page';
-import DisplayFoodData from './components/display_food_data';
 import SignUp from './components/signup';
+import SignIn from './components/signin';
 import DisplaySearchFood from './components/display_search_food';
+// import firebase from './firebase';
 // import PostsNew from './components/posts_new';
 // import PostsShow from './components/posts_show';
+
+// let requireLogin = (nextState, replace, next) => {
+//     "use strict";
+//     if(!firebase.auth().currentUser) {
+//         replace('/');
+//     }
+//     next();
+// };
 
 export default (
 
@@ -15,6 +24,7 @@ export default (
 
         <IndexRoute component={DisplayHomePage} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/foodsearch" component={DisplaySearchFood} />
         {/*<Route path="posts/:id" component={PostsShow} />*/}
 

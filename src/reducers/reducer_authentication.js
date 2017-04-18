@@ -1,17 +1,16 @@
-import { FETCH_FOOD } from '../actions/index';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from '../actions/index';
 
 const INITIAL_STATE = {
-    food: null
+    uid: null
 };
 
 export default function(state = INITIAL_STATE, action) {
-    console.log(action.type);
     switch(action.type) {
-        case FETCH_FOOD:
-            console.log('food', action.payload.data);
+        case AUTH_USER:
+            console.log('auth', action.payload);
             return {
                 ...state,
-                food: action.payload.data
+                uid: action.payload.user.uid
             }
         default:
             return state;

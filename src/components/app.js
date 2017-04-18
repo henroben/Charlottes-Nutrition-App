@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 var {Navbar, Nav, NavItem} = require('react-bootstrap');
 var {LinkContainer, IndexLinkContainer} = require('react-router-bootstrap');
 
-export default class App extends Component {
-  render() {
+class App extends Component {
+    onSignOut() {
+        
+    }
+    displayLoginDetails() {
+        if(this.props.auth.uid) {
+            return (
+                <Nav pullRight>
+                    {/*<LinkContainer to="/signout" activeClassName="active"><NavItem><span className="glyphicon glyphicon-user"></span> Sign Out</NavItem></LinkContainer>*/}
+                    <button onClick={this.onSignOut.bind(this)}><span className="glyphicon glyphicon-user"></span> Sign Out</button>
+                </Nav>
+            );
+        } else {
+            return (
+                <Nav pullRight>
+                    <LinkContainer to="/signup" activeClassName="active"><NavItem><span className="glyphicon glyphicon-user"></span> Sign Up</NavItem></LinkContainer>
+                    <LinkContainer to="/signin" activeClassName="active"><NavItem><span className="glyphicon glyphicon-log-in"></span> Login</NavItem></LinkContainer>
+                </Nav>
+            );
+        }
+    }
+    render() {
+    console.log(this.props.auth.uid);
       return (
       <div>
         <Navbar inverse collapseOnSelect fixedTop fluid={true}>
@@ -19,10 +41,7 @@ export default class App extends Component {
               <IndexLinkContainer to="/" activeClassName="active"><NavItem>Home</NavItem></IndexLinkContainer>
               <LinkContainer to="/foodsearch" activeClassName="active"><NavItem>Food Search</NavItem></LinkContainer>
             </Nav>
-            <Nav pullRight>
-              <LinkContainer to="/signup" activeClassName="active"><NavItem><span className="glyphicon glyphicon-user"></span> Sign Up</NavItem></LinkContainer>
-              <LinkContainer to="/login" activeClassName="active"><NavItem><span className="glyphicon glyphicon-log-in"></span> Login</NavItem></LinkContainer>
-            </Nav>
+              {this.displayLoginDetails()}
           </Navbar.Collapse>
         </Navbar>
 
@@ -42,3 +61,11 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        ...state
+    }
+}
+
+export default connect(mapStateToProps, null)(App);
