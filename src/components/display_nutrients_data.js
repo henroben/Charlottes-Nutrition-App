@@ -12,7 +12,7 @@ class DisplayNutrientData extends Component {
                 return(
                     <li className="list-group-item" key={nutrient.nutrient_id}>
                         <div className="row">
-                            <div className="col-xs-7">strong{nutrient.name}</div>
+                            <div className="col-xs-7">{nutrient.name}</div>
                             <div className="col-xs-3">{nutrient.value}</div>
                             <div className="col-xs-2">{nutrient.unit}</div>
                         </div>

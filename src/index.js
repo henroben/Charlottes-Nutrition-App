@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
 import promise from 'redux-promise';
-// import firebase from './firebase/index';
+import firebase from './firebase/index';
 
 import routes from './routes';
 import App from './components/app';
@@ -23,6 +23,16 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 //         hashHistory.push('/');
 //     }
 // });
+
+firebase.auth().onAuthStateChanged((user) => {
+    "use strict";
+    if(user) {
+        console.log('user logged in');
+        browserHistory.push('/');
+    } else {
+        console.log('user logged out');
+    }
+});
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

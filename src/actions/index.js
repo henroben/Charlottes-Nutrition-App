@@ -1,8 +1,10 @@
+"use strict";
 import axios from 'axios';
 import firebase, {firebaseRef, githubProvider} from './../firebase/index';
 export const FETCH_FOOD = 'FETCH_FOOD';
 export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+export const CREATE_USER = 'CREATE_USER';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const UNAUTH_USER = 'UNAUTH_USER';
@@ -43,6 +45,12 @@ export function setSearchText(searchText) {
     };
 }
 
+// export function startCreateUser(email, password) {
+//     console.log('startCreateUser called');
+//
+//     firebase.auth().createUserWithEmailAndPassword(email, password);
+// }
+
 export function startLogin(authMethod) {
     console.log('startLogin called', authMethod);
     let provider;
@@ -61,13 +69,6 @@ export function startLogin(authMethod) {
         payload: request
     };
 
-        // return firebase.auth().signInWithPopup(githubProvider).then((result) => {
-        //         console.log('Auth worked', result);
-        //     }, (error) => {
-        //         console.log('error', error);
-        //     }
-        // );
-
 }
 
 export function startLogout() {
@@ -76,11 +77,6 @@ export function startLogout() {
     return {
         type: UNAUTH_USER,
         payload: request
-    }
+    };
 
-    // return function(dispatch) {
-    //     return firebase.auth().signOut().then(() => {
-    //         console.log('logged out');
-    //     });
-    // };
 }

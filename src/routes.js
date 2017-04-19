@@ -12,6 +12,7 @@ import firebase from './firebase';
 
 let requireLogin = (nextState, replace, next) => {
     "use strict";
+    console.log('check auth on routes', firebase.auth().currentUser);
     if(!firebase.auth().currentUser) {
         replace('/signin');
     }
@@ -20,7 +21,7 @@ let requireLogin = (nextState, replace, next) => {
 
 export default (
 
-    <Route path="/" component={ App }>
+    <Route path="/" component={App}>
 
         <IndexRoute component={DisplayHomePage} />
         <Route path="/signup" component={SignUp} />

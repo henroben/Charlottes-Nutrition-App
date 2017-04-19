@@ -41,3 +41,6 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+.photoID {
+    height: 20px;
+}
