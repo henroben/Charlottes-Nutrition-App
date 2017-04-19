@@ -45,11 +45,17 @@ export function setSearchText(searchText) {
     };
 }
 
-// export function startCreateUser(email, password) {
-//     console.log('startCreateUser called');
-//
-//     firebase.auth().createUserWithEmailAndPassword(email, password);
-// }
+export function startCreateUser(email, password) {
+    console.log('startCreateUser called');
+
+    const request = firebase.auth().createUserWithEmailAndPassword(email, password);
+
+
+    return {
+        type: AUTH_USER,
+        payload: request
+    };
+}
 
 export function startLogin(authMethod) {
     console.log('startLogin called', authMethod);

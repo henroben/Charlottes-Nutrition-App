@@ -6,8 +6,10 @@ import * as actions from './../actions';
 class SignUp extends Component {
 
     handleFormSubmit(formProps) {
-        console.log(formProps);
-        // this.props.signupUser(formProps);
+        console.log('formprops', formProps);
+        this.props.startCreateUser(formProps.email, formProps.password);
+        // let {dispatch} = this.props;
+        // dispatch(startCreateUser(formProps.email, formProps.password));
     }
 
     renderError() {
@@ -25,7 +27,7 @@ class SignUp extends Component {
         );
     }
     render() {
-        const { handleSubmit, fields: { email, password, passwordConfirm } } = this.props;
+        const { handleSubmit, fields: { email, password, passwordConfirm }, pristine } = this.props;
         return(
             <div className="row">
                 <div className="col-sm-3"></div>
@@ -48,7 +50,7 @@ class SignUp extends Component {
                                 </fieldset>
                                 {this.renderError()}
                                 <div className="form-group">
-                                    <button action="submit" className="btn btn-primary btn-block">Sign Up</button>
+                                    <button action="submit" disabled={pristine} className="btn btn-primary btn-block">Sign Up</button>
                                 </div>
                             </form>
                         </div>
@@ -71,6 +73,20 @@ function validate(formProps) {
         errors.password = 'Please enter a password.'
     }
 
+    if(formProps.password && formProps.password.length < 8) {
+        errors.password = 'Password must be 8 characters or more.'
+    }
+    if(formProps.password && formProps.password.search(/[a-z]/i) < 0) {
+        errors.password = 'Password must contain at least one lowercase character.'
+    }
+    if(formProps.password && formProps.password.search(/[A-Z]/i) < 0) {
+        errors.password = 'Password must contain at least one uppercase character.'
+    }
+    if(formProps.password && formProps.password.search(/[0-9]/) < 0) {
+        errors.password = 'Password must contain at least one digit.'
+    }
+
+
     if(!formProps.passwordConfirm) {
         errors.passwordConfirm = 'Please confirm your password.'
     }
@@ -84,8 +100,8 @@ function validate(formProps) {
 
 
 function mapStateToProps(state) {
-    // return { errorMessage: state.auth.error };
-    return state;
+    return { errorMessage: state.auth.error };
+    // return {};
 }
 
 SignUp = reduxForm({
