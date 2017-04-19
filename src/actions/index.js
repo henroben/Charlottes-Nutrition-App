@@ -43,9 +43,18 @@ export function setSearchText(searchText) {
     };
 }
 
-export function startLogin() {
-    console.log('startLogin called');
-    const request = firebase.auth().signInWithPopup(githubProvider);
+export function startLogin(authMethod) {
+    console.log('startLogin called', authMethod);
+    let provider;
+    switch(authMethod) {
+        case 'facebook':
+            provider = new firebase.auth.FacebookAuthProvider();
+            break;
+        case 'github':
+            provider = new firebase.auth.GithubAuthProvider();
+            break;
+    }
+    const request = firebase.auth().signInWithPopup(provider);
 
     return {
         type: AUTH_USER,

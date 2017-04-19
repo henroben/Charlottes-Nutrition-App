@@ -12,10 +12,9 @@ class SignIn extends Component {
             this.props.history.push('/foodsearch');
         }
     }
-    onSigninGit() {
-        console.log('git signin called');
+    onSignin(authMethod) {
         let {dispatch} = this.props;
-        dispatch(startLogin());
+        dispatch(startLogin(authMethod));
     }
     render() {
         return(
@@ -23,10 +22,17 @@ class SignIn extends Component {
                 <div className="col-sm-3"></div>
                 <div className="col-sm-6">
                     <div className="panel panel-default">
-                        <div className="panel-heading">Sign In</div>
+                        <div className="panel-heading">Sign In With Facebook</div>
+                        <div className="panel-body">
+                            <p>Please sign in with your Facebook account to continue</p>
+                            <button className="btn btn-primary btn-block" onClick={this.onSignin.bind(this, 'facebook')}>Login with Facebook</button>
+                        </div>
+                    </div>
+                    <div className="panel panel-default">
+                        <div className="panel-heading">Sign In With Github</div>
                         <div className="panel-body">
                             <p>Please sign in with your GitHub account to continue</p>
-                            <button className="btn btn-primary btn-block" onClick={this.onSigninGit.bind(this)}>Login with GitHub</button>
+                            <button className="btn btn-primary btn-block" onClick={this.onSignin.bind(this, 'github')}>Login with GitHub</button>
                         </div>
                     </div>
                 </div>
