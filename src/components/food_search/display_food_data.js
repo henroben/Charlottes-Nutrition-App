@@ -1,29 +1,40 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchFood, fetchNutrients } from '../actions/index';
+import { fetchFood, fetchNutrients } from '../../actions/index';
 
 class DisplayFoodData extends Component {
 
     handleOnClick(id) {
-        console.log('item clicked', id);
+        // console.log('item clicked', id);
         this.props.fetchNutrients(id);
+    }
+
+    handleOnClickDashboard(id) {
+        console.log('dashboard item clicked', id);
+        // this.props.fetchNutrients(id);
     }
 
     displayFoodItems(items) {
         if(items !== null) {
-            console.log('items', items);
+            // console.log('items', items);
             return items.map((item) => {
-                console.log(item.name);
-                return(
-                    <li className="list-group-item" key={item.ndbno} onClick={this.handleOnClick.bind(this, item.ndbno)}>{item.name}</li>
-                );
+                // console.log(item.name);
+                if(this.props.location === '/') {
+                    return(
+                        <li className="list-group-item" key={item.ndbno} onClick={this.handleOnClickDashboard.bind(this, item.ndbno)}>{item.name}</li>
+                    );
+                } else {
+                    return(
+                        <li className="list-group-item" key={item.ndbno} onClick={this.handleOnClick.bind(this, item.ndbno)}>{item.name}</li>
+                    );
+                }
             });
         }
     }
 
     render() {
         const { food } = this.props.food;
-
+        console.log('food data', this.props.location);
         if(this.props.food.error) {
             return <div className="alert alert-warning">{this.props.food.error}</div>
         }

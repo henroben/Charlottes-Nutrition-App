@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SearchFoods from './search';
-import DisplayFoodData from './display_food_data';
+import SearchFoods from './food_search/search';
+import DisplayFoodData from './food_search/display_food_data';
 
 class DailyTracking extends Component {
     render() {
-        console.log(this.props);
+        console.log('tracking', this.props.location);
         return(
             <div className="panel panel-success">
                <div className="panel-heading"><h4>Daily Tracking</h4></div>
@@ -15,7 +15,7 @@ class DailyTracking extends Component {
                             Eaten today
                         </div>
                         <div className="col-xs-4">
-                            <SearchFoods />
+                            <SearchFoods location={this.props.location} />
                             <DisplayFoodData location={this.props.location} />
                         </div>
                     </div>

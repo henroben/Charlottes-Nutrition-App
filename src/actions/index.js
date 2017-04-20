@@ -18,7 +18,7 @@ let foodQuery = 'Broccoli, raw';
 let dataSource = 'Standard Reference';
 const ROOT_URL = 'https://api.nal.usda.gov/ndb';
 
-export function fetchFood(searchText) {
+export function fetchFood(searchText, maxResults) {
 
     return function (dispatch) {
         if(searchText) {

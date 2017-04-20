@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchNutrients } from '../actions/index';
+import { fetchNutrients } from '../../actions/index';
 
 class DisplayNutrientData extends Component {
 

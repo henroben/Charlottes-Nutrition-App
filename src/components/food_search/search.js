@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setSearchText, fetchFood } from '../actions/index';
+import { setSearchText, fetchFood } from '../../actions/index';
 
 class FoodSearch extends Component {
     render() {
         let searchText = this.props.searchtext;
+
         return(
             <div className="panel panel-default">
                 <div className="panel-heading">Search for food type:</div>
@@ -14,7 +15,11 @@ class FoodSearch extends Component {
                             searchText = this.refs.searchText.value;
                             console.log('search input value', searchText);
                             this.props.setSearchText(searchText);
-                            this.props.fetchFood(searchText);
+                            if(this.props.location === '/') {
+                                this.props.fetchFood(searchText, 1);
+                            } else {
+                                this.props.fetchFood(searchText, 6);
+                            }
                         }} placeholder="Broccoli, raw" ref="searchText" value={searchText} />
                     </div>
                 </div>
