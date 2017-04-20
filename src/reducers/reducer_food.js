@@ -1,4 +1,4 @@
-import { FETCH_FOOD } from '../actions/index';
+import { FETCH_FOOD, FETCH_ERROR } from '../actions/index';
 
 const INITIAL_STATE = {
     food: null
@@ -11,8 +11,16 @@ export default function(state = INITIAL_STATE, action) {
             console.log('food', action.payload.data);
             return {
                 ...state,
-                food: action.payload.data
+                food: action.payload.data,
+                error: null
             }
+        case FETCH_ERROR:
+            console.log('error', action.payload);
+                return {
+                    ...state,
+                    food: null,
+                    error: action.payload
+                }
         default:
             return state;
     }

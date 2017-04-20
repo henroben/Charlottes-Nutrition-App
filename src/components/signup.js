@@ -51,7 +51,7 @@ class SignUp extends Component {
                 <div className="col-sm-3"></div>
                 <div className="col-sm-6">
                     <div className="panel panel-default">
-                        <div className="panel-heading"><strong>Sign Up &amp; Create An Account</strong></div>
+                        <div className="panel-heading"><h4>Sign Up &amp; Create An Account</h4></div>
                         <div className="panel-body">
                             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                                 <fieldset className="form-group">

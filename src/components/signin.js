@@ -52,12 +52,11 @@ class SignIn extends Component {
     render() {
         const { handleSubmit, fields: { email, password, passwordConfirm }, pristine } = this.props;
         return(
-            <div className="row">
-                <div className="col-sm-3"></div>
-                <div className="col-sm-6">
+
                     <div className="panel panel-default">
-                        <div className="panel-heading"><strong>Sign In With Your Account</strong></div>
+                        <div className="panel-heading"><h4>Sign In</h4></div>
                         <div className="panel-body">
+                            <p>Sign in with your user account to continue.</p>
                             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                                 <fieldset className="form-group">
                                     <Field {...email} className="form-control" type="email" name="email" placeholder="Email address" component={this.renderField} />
@@ -78,9 +77,7 @@ class SignIn extends Component {
                             <p><button className="btn btn-primary btn-block" onClick={this.onSignin.bind(this, 'github')}>Sign in with GitHub</button></p>
                         </div>
                     </div>
-                </div>
-                <div className="col-sm-3"></div>
-            </div>
+
         );
     }
 }

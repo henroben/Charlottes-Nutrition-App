@@ -10,7 +10,7 @@ export default function(state = INITIAL_STATE, action) {
             console.log('searchtext', action.payload);
             return {
                 ...state,
-                searchtext: action.payload
+                text: action.payload
             }
         default:
             return state;

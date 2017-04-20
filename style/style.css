@@ -19,7 +19,7 @@ body {
     top: 0;
     z-index: 0;
 }
-.jumbotron {
+.panel-tint {
     background-color: rgba(255,255,255, 0.8) !important;
 }
 .image-bk {

@@ -6,9 +6,6 @@ import { startLogout } from './../actions/index';
 import firebase from 'firebase';
 
 class App extends Component {
-    componentWillUpdate() {
-        console.log('check firebase auth', firebase.auth().currentUser);
-    }
     onSignOut() {
         let {dispatch} = this.props;
         dispatch(startLogout());
@@ -37,8 +34,24 @@ class App extends Component {
             );
         }
     }
+    displayNavMenu() {
+        if(firebase.auth().currentUser) {
+            return(
+                <Nav>
+                    <IndexLinkContainer to="/" activeClassName="active"><NavItem>Home</NavItem></IndexLinkContainer>
+                    <LinkContainer to="/foodsearch" activeClassName="active"><NavItem>Food Search</NavItem></LinkContainer>
+                </Nav>
+            );
+        } else {
+            return(
+                <Nav>
+                    <LinkContainer to="/about" activeClassName="active"><NavItem>About Us</NavItem></LinkContainer>
+                </Nav>
+            );
+        }
+    }
     render() {
-    console.log(this.props.auth.uid);
+
       return (
       <div>
         <Navbar inverse collapseOnSelect fixedTop fluid={true}>
@@ -50,10 +63,7 @@ class App extends Component {
           </Navbar.Header>
 
           <Navbar.Collapse>
-            <Nav>
-              <IndexLinkContainer to="/" activeClassName="active"><NavItem>Home</NavItem></IndexLinkContainer>
-              <LinkContainer to="/foodsearch" activeClassName="active"><NavItem>Food Search</NavItem></LinkContainer>
-            </Nav>
+              {this.displayNavMenu()}
               {this.displayLoginDetails()}
           </Navbar.Collapse>
         </Navbar>

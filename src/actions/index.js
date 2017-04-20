@@ -4,6 +4,7 @@ import firebase, {firebaseRef, githubProvider} from './../firebase/index';
 import { hashHistory } from 'react-router';
 
 export const FETCH_FOOD = 'FETCH_FOOD';
+export const FETCH_ERROR = 'FETCH_ERROR';
 export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 export const CREATE_USER = 'CREATE_USER';
@@ -19,16 +20,31 @@ const ROOT_URL = 'https://api.nal.usda.gov/ndb';
 
 export function fetchFood(searchText) {
 
-    if(searchText) {
-        foodQuery = searchText;
-    }
-
-    const request = axios.get(`${ROOT_URL}/search/?format=json&q=${foodQuery}&ds=${dataSource}&sort=r&max=${maxResults}${API_KEY}`);
-
-    return {
-        type: FETCH_FOOD,
-        payload: request
+    return function (dispatch) {
+        if(searchText) {
+            foodQuery = searchText;
+        }
+        axios.get(`${ROOT_URL}/search/?format=json&q=${foodQuery}&ds=${dataSource}&sort=r&max=${maxResults}${API_KEY}`)
+            .then((result) => {
+                return dispatch({
+                    type: FETCH_FOOD,
+                    payload: result
+                });
+            })
+            .catch((error) => {
+                return dispatch({
+                        type: FETCH_ERROR,
+                        payload: `'${searchText}' is not a recognised search term`
+                });
+            });
     };
+
+    // const request = axios.get(`${ROOT_URL}/search/?format=json&q=${foodQuery}&ds=${dataSource}&sort=r&max=${maxResults}${API_KEY}`);
+    //
+    // return {
+    //     type: FETCH_FOOD,
+    //     payload: request
+    // };
 }
 
 export function fetchNutrients(ndbno) {
@@ -50,7 +66,6 @@ export function setSearchText(searchText) {
 export function startCreateUser(email, password) {
 
     return function (dispatch) {
-        console.log('startCreateUser called');
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
                 hashHistory.push('/foodsearch');
@@ -66,7 +81,6 @@ export function startCreateUser(email, password) {
 }
 
 export function emailLogin(email, password) {
-    console.log('emailLogin called');
     return function (dispatch) {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((request) => {
@@ -85,7 +99,6 @@ export function emailLogin(email, password) {
 }
 
 export function startLogin(authMethod) {
-    console.log('startLogin called', authMethod);
     let provider;
     switch(authMethod) {
         case 'facebook':

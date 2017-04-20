@@ -28,6 +28,9 @@ class DisplayFoodData extends Component {
     render() {
         const { food } = this.props.food;
 
+        if(this.props.food.error) {
+            return <div className="alert alert-warning">{this.props.food.error}</div>
+        }
         if (!food) {
             return  <div></div>;
         }
