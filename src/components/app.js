@@ -51,7 +51,7 @@ class App extends Component {
         }
     }
     render() {
-
+        console.log('route', this.props.location.pathname);
       return (
       <div>
         <Navbar inverse collapseOnSelect fixedTop fluid={true}>

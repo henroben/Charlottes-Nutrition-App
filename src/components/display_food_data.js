@@ -4,10 +4,6 @@ import { fetchFood, fetchNutrients } from '../actions/index';
 
 class DisplayFoodData extends Component {
 
-    componentWillMount() {
-        // this.props.fetchFood();
-    }
-
     handleOnClick(id) {
         console.log('item clicked', id);
         this.props.fetchNutrients(id);
