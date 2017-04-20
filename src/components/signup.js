@@ -8,8 +8,6 @@ class SignUp extends Component {
     handleFormSubmit(formProps) {
         console.log('formprops', formProps);
         this.props.startCreateUser(formProps.email, formProps.password);
-        // let {dispatch} = this.props;
-        // dispatch(startCreateUser(formProps.email, formProps.password));
     }
 
     renderError() {
@@ -19,13 +17,33 @@ class SignUp extends Component {
     }
 
     renderField(field) {
+        let iconClass;
+        switch(field.input.name) {
+            case 'email':
+                iconClass = 'fa fa-envelope-o fa-fw';
+                break;
+            case 'password':
+                iconClass = 'fa fa-key fa-fw';
+                break;
+            case 'passwordConfirm':
+                iconClass = 'fa fa-key fa-fw';
+                break;
+        }
         return (
             <div>
-                <input {...field.input} type={field.type} className="form-control" />
+                <div className="input-group margin-bottom-sm">
+                    <span className="input-group-addon"><i className={iconClass}></i></span>
+                    <input {...field.input} type={field.type} className="form-control" placeholder={field.placeholder} required />
+                </div>
                 {field.meta.touched && field.meta.error && <div className="alert alert-danger">{field.meta.error}</div>}
             </div>
         );
     }
+
+    onSignin(authMethod) {
+        this.props.startLogin(authMethod);
+    }
+
     render() {
         const { handleSubmit, fields: { email, password, passwordConfirm }, pristine } = this.props;
         return(
@@ -33,26 +51,29 @@ class SignUp extends Component {
                 <div className="col-sm-3"></div>
                 <div className="col-sm-6">
                     <div className="panel panel-default">
-                        <div className="panel-heading">Sign Up</div>
+                        <div className="panel-heading"><strong>Sign Up &amp; Create An Account</strong></div>
                         <div className="panel-body">
                             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                                 <fieldset className="form-group">
-                                    <label htmlFor="email">Email:</label>
-                                    <Field {...email} type="email" name="email" component={this.renderField} />
+                                    <Field {...email} className="form-control" type="email" name="email" placeholder="Email address" component={this.renderField} />
                                 </fieldset>
                                 <fieldset className="form-group">
-                                    <label htmlFor="password" >Password:</label>
-                                    <Field {...password} type="password" name="password" component={this.renderField} />
+                                    <Field {...password} type="password" name="password" placeholder="Please enter a password" component={this.renderField} />
                                 </fieldset>
                                 <fieldset className="form-group">
-                                    <label htmlFor="passwordConfirm">Confirm Password:</label>
-                                    <Field {...passwordConfirm} type="password" name="passwordConfirm" component={this.renderField} />
+                                    <Field {...passwordConfirm} type="password" name="passwordConfirm" placeholder="Please confirm your password" component={this.renderField} />
                                 </fieldset>
                                 {this.renderError()}
                                 <div className="form-group">
                                     <button action="submit" disabled={pristine} className="btn btn-primary btn-block">Sign Up</button>
                                 </div>
                             </form>
+                            <hr/>
+                            <p>Or sign up with your Facebook or GitHub account</p>
+                            <hr/>
+                            <p><button className="btn btn-primary btn-block" onClick={this.onSignin.bind(this, 'facebook')}>Sign Up with Facebook</button></p>
+                            <hr/>
+                            <p><button className="btn btn-primary btn-block" onClick={this.onSignin.bind(this, 'github')}>Sign Up with GitHub</button></p>
                         </div>
                     </div>
                 </div>
@@ -67,6 +88,10 @@ function validate(formProps) {
 
     if(!formProps.email) {
         errors.email = 'Please enter an email.'
+    }
+
+    if(formProps.email && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formProps.email)) {
+        errors.email = 'Please enter a valid email.'
     }
 
     if(!formProps.password) {
@@ -100,7 +125,7 @@ function validate(formProps) {
 
 
 function mapStateToProps(state) {
-    return { errorMessage: state.auth.error };
+    return { errorMessage: state.auth.errorMessage };
     // return {};
 }
 

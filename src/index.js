@@ -4,13 +4,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
 import promise from 'redux-promise';
+import reduxThunk from 'redux-thunk';
 import firebase from './firebase/index';
 
 import routes from './routes';
 import App from './components/app';
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore);
 // let store = createStoreWithMiddleware(reducers);
 
 // firebase.auth().onAuthStateChanged((user) => {

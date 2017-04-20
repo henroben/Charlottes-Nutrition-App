@@ -1,6 +1,8 @@
 "use strict";
 import axios from 'axios';
 import firebase, {firebaseRef, githubProvider} from './../firebase/index';
+import { hashHistory } from 'react-router';
+
 export const FETCH_FOOD = 'FETCH_FOOD';
 export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
@@ -46,14 +48,39 @@ export function setSearchText(searchText) {
 }
 
 export function startCreateUser(email, password) {
-    console.log('startCreateUser called');
 
-    const request = firebase.auth().createUserWithEmailAndPassword(email, password);
+    return function (dispatch) {
+        console.log('startCreateUser called');
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                hashHistory.push('/foodsearch');
+            })
+            .catch((error) => {
+                dispatch({
+                    type: AUTH_ERROR,
+                    payload: error.message
+                });
+            });
+    };
 
+}
 
-    return {
-        type: AUTH_USER,
-        payload: request
+export function emailLogin(email, password) {
+    console.log('emailLogin called');
+    return function (dispatch) {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((request) => {
+                return dispatch({
+                    type: AUTH_USER,
+                    payload: request
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: AUTH_ERROR,
+                    payload: error.message
+                });
+            });
     };
 }
 
