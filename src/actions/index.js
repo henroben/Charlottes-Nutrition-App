@@ -15,6 +15,7 @@ export const UNAUTH_USER = 'UNAUTH_USER';
 
 export const ADD_DAILY_FOOD = 'ADD_DAILY_FOOD';
 export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
+export const SAVE_DAILY_DATA = 'SAVE_DAILY_DATA';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
 let maxResults = 6;
@@ -158,4 +159,26 @@ export function addDailyFood(ndbno) {
 
     };
 
+}
+
+export function startSaveDailyTracker(data, date) {
+    return function (dispatch) {
+        let dayData = {
+            date: date,
+            food: data
+        };
+        let uid = firebase.auth().currentUser.uid;
+        console.log(`uid is ${uid}, date is: ${date}, data is: ${data}`);
+        // save the reference for this day
+        let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`).push(dayData);
+
+        return dailyDataRef.then(() => {
+                console.log('firebase ref', dailyDataRef.key);
+                dispatch({
+                    type: SAVE_DAILY_DATA,
+                    payload: dailyDataRef.key
+                });
+            }
+        );
+    };
 }

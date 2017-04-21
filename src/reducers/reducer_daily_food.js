@@ -1,4 +1,4 @@
-import { ADD_DAILY_FOOD, ADD_DAILY_NUTRIENTS } from '../actions/index';
+import { ADD_DAILY_FOOD, ADD_DAILY_NUTRIENTS, SAVE_DAILY_DATA } from '../actions/index';
 
 const INITIAL_STATE = {
     fooditems: [],
@@ -19,6 +19,11 @@ export default function(state = INITIAL_STATE, action) {
                     action.payload
                 ]
             }
+        case SAVE_DAILY_DATA:
+            return({
+                ...state,
+                ref: action.payload,
+            });
         case ADD_DAILY_NUTRIENTS:
             console.log('nutrientitems:', action.payload);
 
