@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchFood, fetchNutrients } from '../../actions/index';
+import { fetchFood, fetchNutrients, addDailyFood } from '../../actions/index';
 
 class DisplayFoodData extends Component {
 
@@ -9,16 +9,15 @@ class DisplayFoodData extends Component {
         this.props.fetchNutrients(id);
     }
 
-    handleOnClickDashboard(id) {
-        console.log('dashboard item clicked', id);
-        // this.props.fetchNutrients(id);
+    handleOnClickDashboard(ndbno) {
+        console.log('dashboard item clicked', ndbno);
+        this.props.addDailyFood(ndbno);
     }
 
     displayFoodItems(items) {
         if(items !== null) {
             // console.log('items', items);
             return items.map((item) => {
-                // console.log(item.name);
                 if(this.props.location === '/') {
                     return(
                         <li className="list-group-item" key={item.ndbno} onClick={this.handleOnClickDashboard.bind(this, item.ndbno)}>{item.name}</li>
@@ -62,4 +61,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchFood, fetchNutrients })(DisplayFoodData);
+export default connect(mapStateToProps, { fetchFood, fetchNutrients, addDailyFood })(DisplayFoodData);

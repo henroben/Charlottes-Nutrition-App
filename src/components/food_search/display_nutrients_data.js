@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import AddToToday from '../add_to_today';
 import { fetchNutrients } from '../../actions/index';
 
 class DisplayNutrientData extends Component {
@@ -34,7 +35,7 @@ class DisplayNutrientData extends Component {
         return(
             <div>
                 <div className="panel panel-success">
-                    <div className="panel-heading"><h4>{nutrients.report.food.name} <br/> <small>{measures}</small> </h4></div>
+                    <div className="panel-heading"><h4><AddToToday ndbno={nutrients.report.food.ndbno} />{nutrients.report.food.name} <br/> <small>{measures}</small></h4></div>
                     <div className="panel-body">
                         <ul className="list-group">
                             <li className="list-group-item">

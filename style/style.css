@@ -44,3 +44,6 @@ body {
 .photoID {
     height: 20px;
 }
+.add-link {
+    cursor: pointer;
+}

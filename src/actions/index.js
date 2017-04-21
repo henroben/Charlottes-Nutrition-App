@@ -7,10 +7,14 @@ export const FETCH_FOOD = 'FETCH_FOOD';
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+
 export const CREATE_USER = 'CREATE_USER';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const UNAUTH_USER = 'UNAUTH_USER';
+
+export const ADD_DAILY_FOOD = 'ADD_DAILY_FOOD';
+export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
 let maxResults = 6;
@@ -123,6 +127,35 @@ export function startLogout() {
     return {
         type: UNAUTH_USER,
         payload: request
+    };
+
+}
+
+export function addDailyFood(ndbno) {
+
+    return function(dispatch) {
+        axios.get(`${ROOT_URL}/reports/?ndbno=${ndbno}&format=json${API_KEY}`)
+            .then((result) => {
+            console.log(result.data);
+            // add food to daily record
+                dispatch({
+                    type: ADD_DAILY_FOOD,
+                    payload: {
+                        ds: result.data.report.food.ds,
+                        name: result.data.report.food.name,
+                        ndbno: result.data.report.food.ndbno
+                    }
+                });
+                // add nutrients to daily total
+                // dispatch({
+                //     type: ADD_DAILY_NUTRIENTS,
+                //     payload: result.data.report.food.nutrients
+                // });
+            })
+            .catch((error) => {
+                console.warn('error:', error);
+            });
+
     };
 
 }
