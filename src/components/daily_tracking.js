@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchFoods from './food_search/search';
 import DisplayFoodData from './food_search/display_food_data';
-import { startSaveDailyTracker } from '../actions';
+import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker } from '../actions';
 
 class DailyTracking extends Component {
+
+    componentDidMount() {
+        console.log('DailyTracking did mount');
+        let today = new Date().toDateString();
+        let date = JSON.stringify(new Date(today));
+        this.props.startReadDailyTracker(date);
+    }
 
     displayFoodEaten(foodEaten) {
         console.log('food eaten', this.props.foodeaten);
@@ -36,14 +43,16 @@ class DailyTracking extends Component {
 
     handleUpdateData(foodEaten, ref, today) {
         console.log('firebase ref is', ref);
+        let date = JSON.stringify(new Date(today));
         // call update action and update firebase db
+        this.props.startUpdateDailyTracker(foodEaten, today, ref);
     }
 
     displaySaveButton(foodEaten, today) {
         if(foodEaten.length > 0) {
             if(this.props.foodref) {
                 return(
-                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.ref, today)}>Update Data for {today}</button>
+                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.foodref, today)}>Update Data for {today}</button>
                 );
             } else {
                 return(
@@ -87,4 +96,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { startSaveDailyTracker })(DailyTracking);
+export default connect(mapStateToProps, { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker })(DailyTracking);

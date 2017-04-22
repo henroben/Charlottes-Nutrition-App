@@ -16,6 +16,8 @@ export const UNAUTH_USER = 'UNAUTH_USER';
 export const ADD_DAILY_FOOD = 'ADD_DAILY_FOOD';
 export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
 export const SAVE_DAILY_DATA = 'SAVE_DAILY_DATA';
+export const UPDATE_DAILY_DATA = 'UPDATE_DAILY_DATA';
+export const READ_DAILY_DATA = 'READ_DAILY_DATA';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
 let maxResults = 6;
@@ -182,3 +184,44 @@ export function startSaveDailyTracker(data, date) {
         );
     };
 }
+
+export function startUpdateDailyTracker(data, date, ref) {
+    return function (dispatch) {
+        let dayData = {
+            date: date,
+            food: data
+        };
+        let uid = firebase.auth().currentUser.uid;
+
+        let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata/${ref}`).update(dayData);
+
+        return dailyDataRef.then(() => {
+                console.log('firebase updated ref', dailyDataRef);
+                dispatch({
+                    type: UPDATE_DAILY_DATA,
+                    payload: dailyDataRef.key
+                });
+            }
+        );
+    }
+}
+
+export function startReadDailyTracker(date) {
+    return function (dispatch) {
+        let uid = firebase.auth().currentUser.uid;
+        let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`);
+
+        return dailyDataRef.orderByChild("date").equalTo(date).on("child_added", function(snapshot) {
+            console.log('key', snapshot.key);
+            console.log('snapshot', snapshot.val());
+            dispatch({
+                type: READ_DAILY_DATA,
+                payload: {
+                    data: snapshot.val(),
+                    ref: snapshot.key
+                }
+            });
+        });
+
+    };
+};
