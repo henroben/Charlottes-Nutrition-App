@@ -97,3 +97,14 @@ body {
     border-right: 1px solid #eeeeee;
     cursor: pointer;
 }
+.rc-Day:hover {
+    font-weight: bold;
+    background-color: #f5f5f5;
+}
+.rc-Day--current {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+.rc-Day--current:hover {
+    font-weight: bold;
+}

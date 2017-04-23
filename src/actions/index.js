@@ -211,16 +211,23 @@ export function startReadDailyTracker(date) {
         let uid = firebase.auth().currentUser.uid;
         let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`);
         console.log('read search date is:', date.toString());
-        firebaseRef.on("value", function(snapshot) {
-            console.log(snapshot.val());
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
+
+        dispatch({
+            type: READ_DAILY_DATA,
+            payload: {
+                data: {
+                    date: date.toString(),
+                    food: []
+                },
+                ref: null
+            }
         });
 
         return dailyDataRef.orderByChild("date").equalTo(date.toString()).on("child_added", function(snapshot) {
             console.log('snapshot called');
             console.log('key', snapshot.key);
             console.log('snapshot', snapshot.val());
+
             dispatch({
                 type: READ_DAILY_DATA,
                 payload: {
@@ -228,8 +235,6 @@ export function startReadDailyTracker(date) {
                     ref: snapshot.key
                 }
             });
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
         });
 
     };

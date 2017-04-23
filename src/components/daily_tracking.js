@@ -104,6 +104,11 @@ class DailyTracking extends Component {
                             <Month date={moment().startOf('day').add(1, 'days')} mods={
                                 [
                                     {
+                                        date: moment(this.props.trackingDate || today),
+                                        classNames: [ 'current' ],
+                                        component: [ 'day', 'month', 'week' ]
+                                    },
+                                    {
                                         component: [ 'day' ],
                                         events: {
                                             onClick: (date) => this.handleCalendarClick(date)
