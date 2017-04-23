@@ -166,11 +166,11 @@ export function addDailyFood(ndbno) {
 export function startSaveDailyTracker(data, date) {
     return function (dispatch) {
         let dayData = {
-            date: date,
+            date: date.toString(),
             food: data
         };
         let uid = firebase.auth().currentUser.uid;
-        console.log(`uid is ${uid}, date is: ${date}, data is: ${data}`);
+        console.log(`uid is ${uid}, date is: ${date.toString()}, data is: ${data}`);
         // save the reference for this day
         let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`).push(dayData);
 
@@ -210,8 +210,15 @@ export function startReadDailyTracker(date) {
     return function (dispatch) {
         let uid = firebase.auth().currentUser.uid;
         let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`);
+        console.log('read search date is:', date.toString());
+        firebaseRef.on("value", function(snapshot) {
+            console.log(snapshot.val());
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
 
-        return dailyDataRef.orderByChild("date").equalTo(date).on("child_added", function(snapshot) {
+        return dailyDataRef.orderByChild("date").equalTo(date.toString()).on("child_added", function(snapshot) {
+            console.log('snapshot called');
             console.log('key', snapshot.key);
             console.log('snapshot', snapshot.val());
             dispatch({
@@ -221,6 +228,8 @@ export function startReadDailyTracker(date) {
                     ref: snapshot.key
                 }
             });
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
         });
 
     };

@@ -1,0 +1,109 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+@henroben
+Sign out
+Watch 7
+Star 182
+Fork 31 freiksenet/react-calendar
+Code  Issues 6  Pull requests 3  Projects 0  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathreact-calendar/less/bootstrap-theme.less
+3c73111  on 10 Mar 2016
+@lolJS lolJS Added support for modifiers with date ranges.
+2 contributors @lolJS @freiksenet
+RawBlameHistory
+90 lines (86 sloc)  1.6 KB
+  // Sample bootstrap theme for react-calendar
+
+@import '~bootstrap/less/bootstrap.less';
+@import '~bootstrap/less/theme.less';
+
+.cell {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  padding: 5px;
+  text-align: center;
+}
+
+.rc {
+  &-Calendar {
+    &-header {
+      text-align: center;
+      font-weight: bolder;
+    }
+  }
+  &-Month {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 10px 10px;
+    &-header {
+      text-align: center;
+      font-weight: bolder;
+    }
+    &-weekdays {
+      margin-left: 32px;
+      &-weekday {
+        .cell();
+        font-weight: bolder;
+      }
+    }
+    &--current {
+      .rc-Month-header {
+        color: @brand-primary;
+      }
+    }
+  }
+  &-Week {
+    height: 32px;
+    &-number {
+      color: @gray-light;
+      .cell();
+    }
+    &-days {
+      border-left: 1px solid @gray-lighter;
+      border-top: 1px solid @gray-lighter;
+      display: inline-block;
+    }
+    &:last-child {
+      .rc-Week-days {
+        border-bottom: 1px solid @gray-lighter;
+      }
+    }
+    &--current {
+      background-color: @brand-info;
+    }
+  }
+  &-Day {
+    .cell();
+    border-right: 1px solid @gray-lighter;
+    cursor: pointer;
+    &:hover {
+      background-color: @brand-info;
+    }
+    &--outside {
+      cursor: default;
+      color: @gray-lighter;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &--event {
+      background-color: @gray-lighter;
+    }
+    &--current {
+      background-color: @brand-primary;
+    }
+    &--longEvent {
+      background-color: @brand-success;
+    }
+    &--warning {
+      background-color: @brand-warning;
+    }
+  }
+}
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
