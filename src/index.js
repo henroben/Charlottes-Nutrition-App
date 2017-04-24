@@ -29,7 +29,7 @@ firebase.auth().onAuthStateChanged((user) => {
     "use strict";
     if(user) {
         console.log('user logged in');
-        browserHistory.push('/');
+        hashHistory.push('/');
     } else {
         console.log('user logged out');
     }
@@ -37,6 +37,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-      <Router history={browserHistory} routes={routes} />
+      <Router history={hashHistory} routes={routes} />
   </Provider>
   , document.querySelector('.app'));

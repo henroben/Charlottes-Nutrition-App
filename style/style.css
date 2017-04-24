@@ -99,7 +99,7 @@ body {
 }
 .rc-Day:hover {
     font-weight: bold;
-    background-color: #f5f5f5;
+    background-color: #dff0d8;
 }
 .rc-Day--current {
     background-color: #dff0d8;
@@ -107,4 +107,14 @@ body {
 }
 .rc-Day--current:hover {
     font-weight: bold;
+}
+.rc-Day--outside {
+    cursor: default;
+    color: #eeeeee;
+}
+.rc-Day--outside:hover {
+    cursor: default;
+    color: #eeeeee;
+    font-weight: normal;
+    background-color: #fff;
 }
