@@ -5,6 +5,7 @@ import ReactCalendar, { Month } from 'react-calendar';
 
 import SearchFoods from './food_search/search';
 import DisplayFoodData from './food_search/display_food_data';
+import Trackable from './display_trackable';
 
 import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker } from '../actions';
 
@@ -118,6 +119,28 @@ class DailyTracking extends Component {
                             } />
                             <SearchFoods location={this.props.location} />
                             <DisplayFoodData location={this.props.location} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <Trackable rating="numbers" rateTo={7} heading="Mood" />
+                        </div>
+                        <div className="col-md-4">
+                            <Trackable rating="numbers" rateTo={7} heading="Energy" />
+                        </div>
+                        <div className="col-md-4">
+                            <Trackable rating="numbers" rateTo={7} heading="Sleep" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <Trackable rating="stars" rateTo={7} heading="Tiredness" />
+                        </div>
+                        <div className="col-md-4">
+                            <Trackable rating="stars" rateTo={7} heading="Back Pain" />
+                        </div>
+                        <div className="col-md-4">
+                            <Trackable rating="stars" rateTo={7} heading="RSI Pain" />
                         </div>
                     </div>
                 </div>

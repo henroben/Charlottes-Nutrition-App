@@ -118,3 +118,26 @@ body {
     font-weight: normal;
     background-color: #fff;
 }
+
+/* Trackables */
+.trackable-rating {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.trackable-rating li {
+    float: left;
+    width: 14%;
+    text-align: center;
+    vertical-align: middle;
+}
+.rating-stars li:before {
+    content: "\f006";
+    font-family: FontAwesome;
+}
+
+.rating-stars li:hover:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
