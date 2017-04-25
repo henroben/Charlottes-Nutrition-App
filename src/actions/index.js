@@ -8,7 +8,6 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 export const FETCH_NUTRIENTS = 'FETCH_NUTRIENTS';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 
-export const CREATE_USER = 'CREATE_USER';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const UNAUTH_USER = 'UNAUTH_USER';
@@ -18,6 +17,8 @@ export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
 export const SAVE_DAILY_DATA = 'SAVE_DAILY_DATA';
 export const UPDATE_DAILY_DATA = 'UPDATE_DAILY_DATA';
 export const READ_DAILY_DATA = 'READ_DAILY_DATA';
+
+export const ADD_TRACKABLE_ITEM = 'ADD_TRACKABLE_ITEM';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
 let maxResults = 6;
@@ -238,4 +239,14 @@ export function startReadDailyTracker(date) {
         });
 
     };
-};
+}
+
+export function startAddTrackableItem(item, data) {
+    return {
+        type: ADD_TRACKABLE_ITEM,
+        payload: {
+            item: item,
+            rating: data
+        }
+    };
+}

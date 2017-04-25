@@ -1,8 +1,9 @@
-import { ADD_DAILY_FOOD, ADD_DAILY_NUTRIENTS, SAVE_DAILY_DATA, READ_DAILY_DATA } from '../actions/index';
+import { ADD_DAILY_FOOD, ADD_DAILY_NUTRIENTS, SAVE_DAILY_DATA, READ_DAILY_DATA, ADD_TRACKABLE_ITEM } from '../actions/index';
 
 const INITIAL_STATE = {
     fooditems: [],
-    nutrientitems: []
+    nutrientitems: [],
+    trackableitems: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -16,6 +17,15 @@ export default function(state = INITIAL_STATE, action) {
                 ...state,
                 fooditems: [
                     ...state.fooditems,
+                    action.payload
+                ]
+            }
+        case ADD_TRACKABLE_ITEM:
+            console.log('trackable add called', action.payload);
+            return {
+                ...state,
+                trackableitems: [
+                    ...state,
                     action.payload
                 ]
             }

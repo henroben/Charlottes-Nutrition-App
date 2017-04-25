@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { startAddTrackableItem } from '../actions/index';
 
-export default class Trackable extends Component {
+class Trackable extends Component {
 
     handleTrackingClick(trackable, data) {
+        trackable = trackable.replace(/\s+/g, '-').toLowerCase();
         console.log(`${trackable} was rated ${data}`);
+        this.props.startAddTrackableItem(trackable, data);
     }
 
     renderRatingsList(rating, rateTo) {
         let rateArray = [];
-        let icon = null;
+        let icon, ratingStyle = null;
         for(let i = 0; i < rateTo; i++) {
+            // check rating type
             if(rating === 'numbers') {
                 icon = (i + 1);
+
             }
+
             rateArray.push(<li key={i}
-                               className={'rating-' + rating}
+                               // className={'rating-' + rating}
+                               className={ratingStyle}
                                onClick={this.handleTrackingClick.bind(this, this.props.heading, (i+1))}
             >{icon}</li>);
         };
@@ -45,6 +53,7 @@ export default class Trackable extends Component {
     }
 
     render() {
+
         return(
             <div className="panel panel-default">
                 <div className="panel-heading"><h5>{this.props.heading}</h5></div>
@@ -55,3 +64,12 @@ export default class Trackable extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    console.log('state', state);
+    return {
+        state
+    }
+}
+
+export default connect(null, {startAddTrackableItem})(Trackable);

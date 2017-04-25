@@ -137,6 +137,11 @@ body {
     font-family: FontAwesome;
 }
 
+.rating-stars li:hover ~ .rating-stars li:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
+
 .rating-stars li:hover:before {
     content: "\f005";
     font-family: FontAwesome;

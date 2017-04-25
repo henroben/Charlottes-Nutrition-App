@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
   auth: AuthUser,
   dayTrackingData: AddDailyFood,
   form: formReducer
-
 });
 
 export default rootReducer;
