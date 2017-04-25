@@ -13,20 +13,11 @@ class DailyTracking extends Component {
 
     componentDidMount() {
         console.log('DailyTracking did mount');
-        // let today = new Date().toDateString();
-        // let today = new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON();
-        // let date = JSON.stringify(new Date(today));
 
         console.warn('moment test', moment().startOf('day').format('YYYY-MM-DD'));
         console.warn('json test', new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON());
         let today = new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON();
 
-        // console.log('intial date is:', today);
-        // console.log('intial date new Date is:', new Date(today));
-        // console.log('initial date json:', new Date(today).toJSON());
-        // console.log('initial date moment:', moment().startOf('day'));
-        // console.log('initial date moment json:', moment().startOf('day').toJSON());
-        // console.log('intial date moment utc:', moment.utc());
         this.props.startReadDailyTracker(today);
     }
 
@@ -52,17 +43,13 @@ class DailyTracking extends Component {
 
     }
 
-    handleSaveData(foodEaten, today) {
-        // let date = JSON.stringify(new Date(today));
-        // console.log(date);
-        this.props.startSaveDailyTracker(foodEaten, today);
+    handleSaveData(foodEaten, today, trackableitems) {
+        this.props.startSaveDailyTracker(foodEaten, today, trackableitems);
     }
 
-    handleUpdateData(foodEaten, ref, today) {
-        console.log('firebase ref is', ref);
-        // let date = JSON.stringify(new Date(today));
+    handleUpdateData(foodEaten, ref, today, trackableitems) {
         // call update action and update firebase db
-        this.props.startUpdateDailyTracker(foodEaten, today, ref);
+        this.props.startUpdateDailyTracker(foodEaten, today, ref, trackableitems);
     }
 
     handleCalendarClick(date) {
@@ -72,16 +59,16 @@ class DailyTracking extends Component {
         this.props.startReadDailyTracker(searchDate);
     }
 
-    displaySaveButton(foodEaten, today) {
+    displaySaveButton(foodEaten, today, trackableitems) {
         let formatToday = moment(today).format('Do MMMM YYYY').toString();
         if(foodEaten.length > 0) {
             if(this.props.foodref) {
                 return(
-                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.foodref, today)}>Update Data for {formatToday}</button>
+                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.foodref, today, trackableitems)}>Update Data for {formatToday}</button>
                 );
             } else {
                 return(
-                    <button className="btn btn-primary btn-block" onClick={this.handleSaveData.bind(this, foodEaten, today)}>Save Data for {formatToday}</button>
+                    <button className="btn btn-primary btn-block" onClick={this.handleSaveData.bind(this, foodEaten, today, trackableitems)}>Save Data for {formatToday}</button>
                 );
             }
         }
@@ -98,7 +85,7 @@ class DailyTracking extends Component {
                         <div className="col-xs-8">
                             <ul className="list-group">
                                 {this.displayFoodEaten(this.props.foodeaten)}
-                                {this.displaySaveButton(this.props.foodeaten, this.props.trackingDate)}
+                                {this.displaySaveButton(this.props.foodeaten, this.props.trackingDate, this.props.trackableitems)}
                             </ul>
                         </div>
                         <div className="col-xs-4">
@@ -153,6 +140,7 @@ function mapStateToProps(state) {
     return {
         ...state,
         foodeaten: state.dayTrackingData.fooditems,
+        trackableitems: state.dayTrackingData.trackableitems,
         foodref: state.dayTrackingData.ref,
         trackingDate: state.dayTrackingData.date
     }

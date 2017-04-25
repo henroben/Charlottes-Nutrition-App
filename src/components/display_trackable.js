@@ -7,19 +7,34 @@ class Trackable extends Component {
     handleTrackingClick(trackable, data) {
         trackable = trackable.replace(/\s+/g, '-').toLowerCase();
         console.log(`${trackable} was rated ${data}`);
-        this.props.startAddTrackableItem(trackable, data);
+        this.props.startAddTrackableItem(trackable, data, this.props.trackable);
     }
 
-    renderRatingsList(rating, rateTo) {
+    renderRatingsList(rating, rateTo, selected) {
         let rateArray = [];
-        let icon, ratingStyle = null;
+        let icon, ratingStyle, select = null;
+
+        let trackables = _.filter(this.props.trackable, (object) => {
+            return object.item === selected;
+        });
+
+        console.log('trackables', trackables);
+
+        if(trackables[0] !== undefined || null) {
+            select = (parseInt(trackables[0].rating) - 1);
+            console.log('rating is', select);
+        }
+
         for(let i = 0; i < rateTo; i++) {
             // check rating type
             if(rating === 'numbers') {
                 icon = (i + 1);
-
             }
-
+            if(select !== null && select >= i) {
+                ratingStyle = 'selected';
+            } else {
+                ratingStyle = '';
+            }
             rateArray.push(<li key={i}
                                // className={'rating-' + rating}
                                className={ratingStyle}
@@ -29,9 +44,9 @@ class Trackable extends Component {
         return rateArray;
     }
 
-    renderRatings(rating) {
+    renderRatings(rating, selected) {
         let rateTo = this.props.rateTo;
-        let rates = this.renderRatingsList(rating, 7);
+        let rates = this.renderRatingsList(rating, 7, selected);
 
         if(rating === 'stars') {
             return(
@@ -52,13 +67,18 @@ class Trackable extends Component {
         }
     }
 
-    render() {
+    getSelected(heading) {
+        let trackable = heading.replace(/\s+/g, '-').toLowerCase();
+        return trackable;
+    }
 
+    render() {
+        let selected = this.getSelected(this.props.heading);
         return(
             <div className="panel panel-default">
                 <div className="panel-heading"><h5>{this.props.heading}</h5></div>
                 <div className="panel-body">
-                    {this.renderRatings(this.props.rating)}
+                    {this.renderRatings(this.props.rating, selected)}
                 </div>
             </div>
         );
@@ -68,8 +88,8 @@ class Trackable extends Component {
 function mapStateToProps(state) {
     console.log('state', state);
     return {
-        state
+        trackable: state.dayTrackingData.trackableitems
     }
 }
 
-export default connect(null, {startAddTrackableItem})(Trackable);
+export default connect(mapStateToProps, {startAddTrackableItem})(Trackable);

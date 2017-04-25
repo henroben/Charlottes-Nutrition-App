@@ -131,6 +131,11 @@ body {
     width: 14%;
     text-align: center;
     vertical-align: middle;
+    cursor: pointer;
+}
+.rating-numbers .selected {
+    background-color: #000000;
+    color: white;
 }
 .rating-stars li:before {
     content: "\f006";
@@ -143,6 +148,11 @@ body {
 }
 
 .rating-stars li:hover:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
+
+.rating-stars .selected:before {
     content: "\f005";
     font-family: FontAwesome;
 }

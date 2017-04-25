@@ -2,6 +2,7 @@
 import axios from 'axios';
 import firebase, {firebaseRef, githubProvider} from './../firebase/index';
 import { hashHistory } from 'react-router';
+import _ from 'lodash';
 
 export const FETCH_FOOD = 'FETCH_FOOD';
 export const FETCH_ERROR = 'FETCH_ERROR';
@@ -164,14 +165,15 @@ export function addDailyFood(ndbno) {
 
 }
 
-export function startSaveDailyTracker(data, date) {
+export function startSaveDailyTracker(data, date, trackableitems) {
     return function (dispatch) {
         let dayData = {
             date: date.toString(),
-            food: data
+            food: data,
+            trackableitems: trackableitems
         };
         let uid = firebase.auth().currentUser.uid;
-        console.log(`uid is ${uid}, date is: ${date.toString()}, data is: ${data}`);
+        console.log(`uid is ${uid}, date is: ${date.toString()}, data is: ${data}, trackableitems are ${trackableitems}`);
         // save the reference for this day
         let dailyDataRef = firebaseRef.child(`users/${uid}/dailydata`).push(dayData);
 
@@ -186,11 +188,12 @@ export function startSaveDailyTracker(data, date) {
     };
 }
 
-export function startUpdateDailyTracker(data, date, ref) {
+export function startUpdateDailyTracker(data, date, ref, trackableitems) {
     return function (dispatch) {
         let dayData = {
             date: date,
-            food: data
+            food: data,
+            trackableitems: trackableitems
         };
         let uid = firebase.auth().currentUser.uid;
 
@@ -218,7 +221,8 @@ export function startReadDailyTracker(date) {
             payload: {
                 data: {
                     date: date.toString(),
-                    food: []
+                    food: [],
+                    trackableitems: []
                 },
                 ref: null
             }
@@ -241,12 +245,18 @@ export function startReadDailyTracker(date) {
     };
 }
 
-export function startAddTrackableItem(item, data) {
+export function startAddTrackableItem(item, data, trackableObject) {
+    console.log('trackableObject', trackableObject);
+    let trackables = _.filter(trackableObject, (object) => {
+        return object.item != item;
+    });
+    trackables.push({
+        item: item,
+        rating: data
+    });
+    console.log('trackables', trackables);
     return {
         type: ADD_TRACKABLE_ITEM,
-        payload: {
-            item: item,
-            rating: data
-        }
+        payload: trackables
     };
 }
