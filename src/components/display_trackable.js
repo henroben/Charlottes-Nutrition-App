@@ -18,11 +18,8 @@ class Trackable extends Component {
             return object.item === selected;
         });
 
-        console.log('trackables', trackables);
-
         if(trackables[0] !== undefined || null) {
             select = (parseInt(trackables[0].rating) - 1);
-            console.log('rating is', select);
         }
 
         for(let i = 0; i < rateTo; i++) {
@@ -86,7 +83,6 @@ class Trackable extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('state', state);
     return {
         trackable: state.dayTrackingData.trackableitems
     }

@@ -7,18 +7,20 @@ import SearchFoods from './food_search/search';
 import DisplayFoodData from './food_search/display_food_data';
 import Trackable from './display_trackable';
 
-import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker } from '../actions';
+import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker, removeDailyFood } from '../actions';
 
 class DailyTracking extends Component {
 
     componentDidMount() {
-        console.log('DailyTracking did mount');
+         // check to see if selected date present, otherwise load today
+        if(!this.props.trackingDate) {
+            let today = new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON();
+            this.props.startReadDailyTracker(today);
+        }
+    }
 
-        console.warn('moment test', moment().startOf('day').format('YYYY-MM-DD'));
-        console.warn('json test', new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON());
-        let today = new Date(moment().startOf('day').format('YYYY-MM-DD')).toJSON();
-
-        this.props.startReadDailyTracker(today);
+    removeFoodEaten(ndbno, foodEaten) {
+        this.props.removeDailyFood(ndbno, foodEaten);
     }
 
     displayFoodEaten(foodEaten) {
@@ -33,7 +35,7 @@ class DailyTracking extends Component {
                             </div>
                             <div className="col-xs-3">
                                 <span className="pull-right">
-                                    <i className="fa fa-cog fa-lg fa-fw"></i> <i className="fa fa-times fa-lg fa-fw"></i>
+                                    <i className="fa fa-cog fa-lg fa-fw"></i> <i className="fa fa-times fa-lg fa-fw food-option" onClick={this.removeFoodEaten.bind(this, food.ndbno, this.props.foodeaten)}></i>
                                 </span>
                             </div>
                         </div>
@@ -42,6 +44,8 @@ class DailyTracking extends Component {
             });
 
     }
+
+
 
     handleSaveData(foodEaten, today, trackableitems) {
         this.props.startSaveDailyTracker(foodEaten, today, trackableitems);
@@ -146,4 +150,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker })(DailyTracking);
+export default connect(mapStateToProps, { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker, removeDailyFood })(DailyTracking);

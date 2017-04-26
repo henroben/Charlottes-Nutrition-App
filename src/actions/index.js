@@ -14,6 +14,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const UNAUTH_USER = 'UNAUTH_USER';
 
 export const ADD_DAILY_FOOD = 'ADD_DAILY_FOOD';
+export const REMOVE_DAILY_FOOD = 'REMOVE_DAILY_FOOD';
 export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
 export const SAVE_DAILY_DATA = 'SAVE_DAILY_DATA';
 export const UPDATE_DAILY_DATA = 'UPDATE_DAILY_DATA';
@@ -163,6 +164,17 @@ export function addDailyFood(ndbno) {
 
     };
 
+}
+
+export function removeDailyFood(ndbno, dailyFood) {
+    let newFood = _.filter(dailyFood, (food) => {
+        return food.ndbno != ndbno;
+    });
+
+    return {
+        type: REMOVE_DAILY_FOOD,
+        payload: newFood
+    };
 }
 
 export function startSaveDailyTracker(data, date, trackableitems) {
