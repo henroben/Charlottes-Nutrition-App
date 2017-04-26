@@ -6,6 +6,7 @@ import ReactCalendar, { Month } from 'react-calendar';
 import SearchFoods from './food_search/search';
 import DisplayFoodData from './food_search/display_food_data';
 import Trackable from './display_trackable';
+import DisplayDailyNutrients from './display_daily_nutrients';
 
 import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker, removeDailyFood } from '../actions';
 
@@ -146,6 +147,11 @@ class DailyTracking extends Component {
                         </div>
                         <div className="col-md-4">
                             <Trackable rating="stars" rateTo={7} heading="RSI Pain" />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <DisplayDailyNutrients nutrients={this.props.nutrientitems} />
                         </div>
                     </div>
                 </div>

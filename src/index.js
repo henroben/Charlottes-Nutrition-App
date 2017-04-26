@@ -32,6 +32,7 @@ firebase.auth().onAuthStateChanged((user) => {
         hashHistory.push('/');
     } else {
         console.log('user logged out');
+        hashHistory.push('/about');
     }
 });
 

@@ -20,13 +20,7 @@ export default function(state = INITIAL_STATE, action) {
             }
         case UNAUTH_USER:
             console.log('signing out user');
-            return {
-                ...state,
-                uid: null,
-                displayName: null,
-                photoURL: null,
-                errorMessage: null
-            }
+            return {}
         case AUTH_ERROR:
             console.log('Auth error');
             return {
