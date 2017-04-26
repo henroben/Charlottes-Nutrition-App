@@ -25,35 +25,45 @@ class DailyTracking extends Component {
 
     displayFoodEaten(foodEaten) {
         console.log('food eaten', this.props.foodeaten);
-
-            return foodEaten.map((food) => {
-                return(
-                    <li className="list-group-item" key={food.ndbno}>
-                        <div className="row">
-                            <div className="col-xs-9">
-                                {food.name}
-                            </div>
-                            <div className="col-xs-3">
+            if(foodEaten.length > 0) {
+                return foodEaten.map((food) => {
+                    return(
+                        <li className="list-group-item" key={food.ndbno}>
+                            <div className="row">
+                                <div className="col-xs-9">
+                                    {food.name}
+                                </div>
+                                <div className="col-xs-3">
                                 <span className="pull-right">
                                     <i className="fa fa-cog fa-lg fa-fw"></i> <i className="fa fa-times fa-lg fa-fw food-option" onClick={this.removeFoodEaten.bind(this, food.ndbno, this.props.foodeaten)}></i>
                                 </span>
+                                </div>
                             </div>
+                        </li>
+                    );
+                });
+            } else {
+                return(
+                    <li className="list-group-item">
+                        <div className="row">
+                            <div className="col-xs-12">No food found for this date</div>
                         </div>
                     </li>
                 );
-            });
+            }
+
 
     }
 
 
 
-    handleSaveData(foodEaten, today, trackableitems) {
-        this.props.startSaveDailyTracker(foodEaten, today, trackableitems);
+    handleSaveData(foodEaten, today, trackableitems, nutrientitems) {
+        this.props.startSaveDailyTracker(foodEaten, today, trackableitems, nutrientitems);
     }
 
-    handleUpdateData(foodEaten, ref, today, trackableitems) {
+    handleUpdateData(foodEaten, ref, today, trackableitems, nutrientitems) {
         // call update action and update firebase db
-        this.props.startUpdateDailyTracker(foodEaten, today, ref, trackableitems);
+        this.props.startUpdateDailyTracker(foodEaten, today, ref, trackableitems, nutrientitems);
     }
 
     handleCalendarClick(date) {
@@ -65,14 +75,14 @@ class DailyTracking extends Component {
 
     displaySaveButton(foodEaten, today, trackableitems) {
         let formatToday = moment(today).format('Do MMMM YYYY').toString();
-        if(foodEaten.length > 0) {
+        if(foodEaten.length > 0 || trackableitems.length > 0) {
             if(this.props.foodref) {
                 return(
-                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.foodref, today, trackableitems)}>Update Data for {formatToday}</button>
+                    <button className="btn btn-primary btn-block" onClick={this.handleUpdateData.bind(this, foodEaten, this.props.foodref, today, trackableitems, this.props.nutrientitems)}>Update Data for {formatToday}</button>
                 );
             } else {
                 return(
-                    <button className="btn btn-primary btn-block" onClick={this.handleSaveData.bind(this, foodEaten, today, trackableitems)}>Save Data for {formatToday}</button>
+                    <button className="btn btn-primary btn-block" onClick={this.handleSaveData.bind(this, foodEaten, today, trackableitems, this.props.nutrientitems)}>Save Data for {formatToday}</button>
                 );
             }
         }
@@ -81,9 +91,13 @@ class DailyTracking extends Component {
     render() {
         console.log('tracking', this.props.location);
         let today = moment(this.props.trackingDate).format('Do MMMM YYYY').toString();
+        let displayDailyCalories = '';
+        if(this.props.nutrientitems.length > 0) {
+            displayDailyCalories = `Calories consumed: ${this.props.nutrientitems[1].measures[0].value} ${this.props.nutrientitems[1].unit}`
+        }
         return(
             <div className="panel panel-success">
-               <div className="panel-heading"><h4>Daily Tracking for {today}</h4></div>
+               <div className="panel-heading"><h4>Daily Tracking for {today} <small>{displayDailyCalories}</small></h4></div>
                 <div className="panel-body">
                     <div className="row">
                         <div className="col-xs-8">
@@ -146,7 +160,8 @@ function mapStateToProps(state) {
         foodeaten: state.dayTrackingData.fooditems,
         trackableitems: state.dayTrackingData.trackableitems,
         foodref: state.dayTrackingData.ref,
-        trackingDate: state.dayTrackingData.date
+        trackingDate: state.dayTrackingData.date,
+        nutrientitems: state.dayTrackingData.nutrientitems
     }
 }
 

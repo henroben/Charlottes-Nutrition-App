@@ -16,6 +16,7 @@ export const UNAUTH_USER = 'UNAUTH_USER';
 export const ADD_DAILY_FOOD = 'ADD_DAILY_FOOD';
 export const REMOVE_DAILY_FOOD = 'REMOVE_DAILY_FOOD';
 export const ADD_DAILY_NUTRIENTS = 'ADD_DAILY_NUTRIENTS';
+export const REMOVE_DAILY_NUTRIENTS = 'REMOVE_DAILY_NUTRIENTS';
 export const SAVE_DAILY_DATA = 'SAVE_DAILY_DATA';
 export const UPDATE_DAILY_DATA = 'UPDATE_DAILY_DATA';
 export const READ_DAILY_DATA = 'READ_DAILY_DATA';
@@ -48,13 +49,6 @@ export function fetchFood(searchText, maxResults) {
                 });
             });
     };
-
-    // const request = axios.get(`${ROOT_URL}/search/?format=json&q=${foodQuery}&ds=${dataSource}&sort=r&max=${maxResults}${API_KEY}`);
-    //
-    // return {
-    //     type: FETCH_FOOD,
-    //     payload: request
-    // };
 }
 
 export function fetchNutrients(ndbno) {
@@ -153,10 +147,10 @@ export function addDailyFood(ndbno) {
                     }
                 });
                 // add nutrients to daily total
-                // dispatch({
-                //     type: ADD_DAILY_NUTRIENTS,
-                //     payload: result.data.report.food.nutrients
-                // });
+                dispatch({
+                    type: ADD_DAILY_NUTRIENTS,
+                    payload: result.data.report.food.nutrients
+                });
             })
             .catch((error) => {
                 console.warn('error:', error);
@@ -167,22 +161,37 @@ export function addDailyFood(ndbno) {
 }
 
 export function removeDailyFood(ndbno, dailyFood) {
-    let newFood = _.filter(dailyFood, (food) => {
-        return food.ndbno != ndbno;
-    });
 
-    return {
-        type: REMOVE_DAILY_FOOD,
-        payload: newFood
+    return function(dispatch) {
+        axios.get(`${ROOT_URL}/reports/?ndbno=${ndbno}&format=json${API_KEY}`).then((result) => {
+            // remove food from daily record
+            let newFood = _.filter(dailyFood, (food) => {
+                return food.ndbno != ndbno;
+            });
+
+            dispatch({
+                type: REMOVE_DAILY_FOOD,
+                payload: newFood
+            });
+
+            // remove food nutrients from daily total
+            dispatch({
+                type: REMOVE_DAILY_NUTRIENTS,
+                payload: result.data.report.food.nutrients
+            });
+        }).catch((error) => {
+            console.warn('error:', error);
+        });
     };
 }
 
-export function startSaveDailyTracker(data, date, trackableitems) {
+export function startSaveDailyTracker(data, date, trackableitems, nutrientitems) {
     return function (dispatch) {
         let dayData = {
             date: date.toString(),
             food: data,
-            trackableitems: trackableitems
+            trackableitems: trackableitems,
+            nutrientitems: nutrientitems
         };
         let uid = firebase.auth().currentUser.uid;
         console.log(`uid is ${uid}, date is: ${date.toString()}, data is: ${data}, trackableitems are ${trackableitems}`);
@@ -200,12 +209,13 @@ export function startSaveDailyTracker(data, date, trackableitems) {
     };
 }
 
-export function startUpdateDailyTracker(data, date, ref, trackableitems) {
+export function startUpdateDailyTracker(data, date, ref, trackableitems, nutrientitems) {
     return function (dispatch) {
         let dayData = {
             date: date,
             food: data,
-            trackableitems: trackableitems
+            trackableitems: trackableitems,
+            nutrientitems: nutrientitems
         };
         let uid = firebase.auth().currentUser.uid;
 
@@ -234,7 +244,8 @@ export function startReadDailyTracker(date) {
                 data: {
                     date: date.toString(),
                     food: [],
-                    trackableitems: []
+                    trackableitems: [],
+                    nutrientitems: []
                 },
                 ref: null
             }

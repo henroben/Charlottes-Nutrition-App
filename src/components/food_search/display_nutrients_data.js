@@ -9,12 +9,12 @@ class DisplayNutrientData extends Component {
         if(nutrients !== null) {
             console.log('nutrients', nutrients);
             return nutrients.map((nutrient) => {
-                console.log(nutrient.name);
+                console.log(nutrient.name, nutrient);
                 return(
                     <li className="list-group-item" key={nutrient.nutrient_id}>
                         <div className="row">
                             <div className="col-xs-7">{nutrient.name}</div>
-                            <div className="col-xs-3">{nutrient.value}</div>
+                            <div className="col-xs-3">{nutrient.measures[0].value}</div>
                             <div className="col-xs-2">{nutrient.unit}</div>
                         </div>
                     </li>
@@ -35,7 +35,7 @@ class DisplayNutrientData extends Component {
         return(
             <div>
                 <div className="panel panel-success">
-                    <div className="panel-heading"><h4><AddToToday ndbno={nutrients.report.food.ndbno} />{nutrients.report.food.name} <br/> <small>{measures}</small></h4></div>
+                    <div className="panel-heading"><h4><AddToToday ndbno={nutrients.report.food.ndbno} />{nutrients.report.food.name} <br/> <small>Portion: {measures}</small></h4></div>
                     <div className="panel-body">
                         <ul className="list-group">
                             <li className="list-group-item">
