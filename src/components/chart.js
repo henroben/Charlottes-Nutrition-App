@@ -1,16 +1,10 @@
-import _ from 'lodash';
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-// import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
-
-// function average(data) {
-//     return _.round(_.sum(data)/data.length);
-// }
 
 export default (props) => {
     return(
         <div className="chart">
-                <AreaChart width={800} height={400} data={props.data}
+                <AreaChart width={800} height={300} data={props.data}
                            margin={{top: 10, right: 30, left: 0, bottom: 0}}>
                     <XAxis dataKey="name"/>
                     <YAxis/>

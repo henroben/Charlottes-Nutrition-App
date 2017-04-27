@@ -12,18 +12,6 @@ import App from './components/app';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore);
-// let store = createStoreWithMiddleware(reducers);
-
-// firebase.auth().onAuthStateChanged((user) => {
-//     if(user){
-//         // login(user.uid);
-//         // createStoreWithMiddleware.dispatch(actions.startAddToDos());
-//         hashHistory.push('/');
-//     } else {
-//         createStoreWithMiddleware.dispatch(actions.logout());
-//         hashHistory.push('/');
-//     }
-// });
 
 firebase.auth().onAuthStateChanged((user) => {
     "use strict";

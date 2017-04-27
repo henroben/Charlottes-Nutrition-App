@@ -11,9 +11,10 @@ export default class DisplayDailyNutrients extends Component {
         minerals.map((mineral) => {
             mineralsForChart.push({
                 name: mineral.name,
-                mg: mineral.measures[0].value
+                mg: parseFloat(mineral.measures[0].value)
             });
         });
+        console.log('minerals', mineralsForChart);
         return mineralsForChart;
     }
     calcVitaminsTotals(nutrients) {
@@ -24,7 +25,7 @@ export default class DisplayDailyNutrients extends Component {
         vitamins.map((vitamin) => {
             vitaminsForChart.push({
                 name: vitamin.name,
-                mg: vitamin.measures[0].value
+                mg: parseInt(vitamin.measures[0].value)
             });
         });
         return vitaminsForChart;
@@ -37,7 +38,7 @@ export default class DisplayDailyNutrients extends Component {
         lipids.map((lipid) => {
             lipidsForChart.push({
                 name: lipid.name,
-                g: lipid.measures[0].value
+                g: parseInt(lipid.measures[0].value)
             });
         });
         return lipidsForChart;
@@ -50,7 +51,7 @@ export default class DisplayDailyNutrients extends Component {
         proximates.map((proximate) => {
             proximatesForChart.push({
                 name: proximate.name,
-                g: proximate.measures[0].value
+                g: parseInt(proximate.measures[0].value)
             });
         });
         return proximatesForChart;

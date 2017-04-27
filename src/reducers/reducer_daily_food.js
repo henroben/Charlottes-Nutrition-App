@@ -46,14 +46,9 @@ export default function(state = INITIAL_STATE, action) {
                 nutrientitems: action.payload.data.nutrientitems || []
             });
         case ADD_DAILY_NUTRIENTS:
-            console.group('ADD_DAILY_NUTRIENTS');
-            console.log('new nutrient items:', action.payload);
-            console.log('state', state.nutrientitems);
-            console.log(`Nutrient measures: 1 ${action.payload[0].measures[0].label} is ${action.payload[0].measures[0].eqv} ${action.payload[0].measures[0].eunit}`);
 
             // check if nutrient total already existing
             if(state.nutrientitems.length > 0) {
-                console.log('nutrient items found');
 
                 let currentTotal = state.nutrientitems;
 
@@ -78,13 +73,11 @@ export default function(state = INITIAL_STATE, action) {
                 });
             } else {
                 // no nutrient total for today, so just add current results
-                console.log('no nutrient items found, adding');
                 return ({
                         ...state,
                         nutrientitems: action.payload
                     });
             }
-            console.groupEnd();
         case 'REMOVE_DAILY_NUTRIENTS':
             let currentTotal = state.nutrientitems;
 

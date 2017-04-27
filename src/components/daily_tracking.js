@@ -12,6 +12,13 @@ import { startSaveDailyTracker, startUpdateDailyTracker, startReadDailyTracker, 
 
 class DailyTracking extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            navdate: moment()
+        };
+    }
+
     componentDidMount() {
          // check to see if selected date present, otherwise load today
         if(!this.props.trackingDate) {
@@ -25,7 +32,6 @@ class DailyTracking extends Component {
     }
 
     displayFoodEaten(foodEaten) {
-        console.log('food eaten', this.props.foodeaten);
             if(foodEaten.length > 0) {
                 return foodEaten.map((food) => {
                     return(
@@ -89,6 +95,18 @@ class DailyTracking extends Component {
         }
     }
 
+    handlePrevMonth() {
+        this.setState({
+            navdate: this.state.navdate.clone().subtract(1, 'month')
+        });
+    }
+
+    handleNextMonth() {
+        this.setState({
+            navdate: this.state.navdate.clone().add(1, 'month')
+        })
+    }
+
     render() {
         console.log('tracking', this.props.location);
         let today = moment(this.props.trackingDate).format('Do MMMM YYYY').toString();
@@ -108,7 +126,13 @@ class DailyTracking extends Component {
                             </ul>
                         </div>
                         <div className="col-xs-4">
-                            <Month date={moment().startOf('day').add(1, 'days')} mods={
+                            <a href="#" className="prevMonth" onClick={this.handlePrevMonth.bind(this)}>
+                                Prev Month
+                            </a>
+                            <a href="#" className="nextMonth" onClick={this.handleNextMonth.bind(this)}>
+                                Next Month
+                            </a>
+                            <Month date={moment(this.state.navdate).startOf('day').add(1, 'days')} mods={
                                 [
                                     {
                                         date: moment(this.props.trackingDate || today),
