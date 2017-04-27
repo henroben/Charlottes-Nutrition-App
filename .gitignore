@@ -1,9 +1,7 @@
 /node_modules
 /playground
+/.idea
 /src
 npm-debug.log
 .DS_Store
 
-# IntelliJ
-*.iml
-/.idea
