@@ -159,3 +159,10 @@ body {
     content: "\f005";
     font-family: FontAwesome;
 }
+
+/* chart */
+.chart {
+    width: 100%;
+    height: 400px;
+    display: inline-block;
+}
