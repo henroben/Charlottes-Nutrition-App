@@ -1,0 +1,168 @@
+html {
+    background: url('https://images.unsplash.com/photo-1443131612988-32b6d97cc5da?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=e16d2b917e6b321503c2fcaea36ae159') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+body {
+    background-color: transparent !important;
+}
+.container {
+    margin-top: 75px;
+    margin-bottom: 75px;
+
+}
+.container-bk {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+.panel-tint {
+    background-color: rgba(255,255,255, 0.8) !important;
+}
+.image-bk {
+    background-image: url('https://images.unsplash.com/photo-1443131612988-32b6d97cc5da?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=e16d2b917e6b321503c2fcaea36ae159');
+    width: 100%;
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.list-group-item:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+.image-background {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.photoID {
+    height: 20px;
+}
+.add-link {
+    cursor: pointer;
+}
+.food-option:hover {
+    color: red;
+}
+
+/* Calendar Styles */
+.rc-Month {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 10px 10px;
+}
+.rc-Month-header {
+    text-align: center;
+    font-weight: bolder;
+}
+.rc-Month-weekdays {
+    /*margin-left: 32px;*/
+}
+.rc-Month-weekday {
+    font-weight: bolder;
+}
+.rc-Week {
+    height: 32px;
+}
+.rc-Month-weekdays-weekday {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bolder;
+}
+.rc-Week-number {
+    color: #777777;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    text-align: center;
+}
+.rc-Week-days {
+    border-left: 1px solid #eeeeee;
+    border-top: 1px solid #eeeeee;
+    display: inline-block;
+}
+.rc-Day {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    text-align: center;
+    border-right: 1px solid #eeeeee;
+    cursor: pointer;
+}
+.rc-Day:hover {
+    font-weight: bold;
+    background-color: #dff0d8;
+}
+.rc-Day--current {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+.rc-Day--current:hover {
+    font-weight: bold;
+}
+.rc-Day--outside {
+    cursor: default;
+    color: #eeeeee;
+}
+.rc-Day--outside:hover {
+    cursor: default;
+    color: #eeeeee;
+    font-weight: normal;
+    background-color: #fff;
+}
+
+/* Trackables */
+.trackable-rating {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.trackable-rating li {
+    float: left;
+    width: 14%;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.rating-numbers .selected {
+    background-color: #000000;
+    color: white;
+}
+.rating-stars li:before {
+    content: "\f006";
+    font-family: FontAwesome;
+}
+
+.rating-stars li:hover ~ .rating-stars li:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
+
+.rating-stars li:hover:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
+
+.rating-stars .selected:before {
+    content: "\f005";
+    font-family: FontAwesome;
+}
+
+/* chart */
+.chart {
+    width: 100%;
+    height: 400px;
+    display: inline-block;
+}
