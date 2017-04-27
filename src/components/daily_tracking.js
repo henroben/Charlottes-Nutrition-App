@@ -127,10 +127,10 @@ class DailyTracking extends Component {
                         </div>
                         <div className="col-xs-4">
                             <a href="#" className="prevMonth" onClick={this.handlePrevMonth.bind(this)}>
-                                Prev Month
+                                <i className="fa fa-arrow-left"></i> Prev Month
                             </a>
                             <a href="#" className="nextMonth" onClick={this.handleNextMonth.bind(this)}>
-                                Next Month
+                                Next Month <i className="fa fa-arrow-right"></i>
                             </a>
                             <Month date={moment(this.state.navdate).startOf('day').add(1, 'days')} mods={
                                 [

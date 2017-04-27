@@ -177,8 +177,10 @@ body {
 .prevMonth {
     float: left;
     color: #666666;
+    font-size: 12px;
 }
 .nextMonth {
     float: right;
     color: #666666;
+    font-size: 12px;
 }
