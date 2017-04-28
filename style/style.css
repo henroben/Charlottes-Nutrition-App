@@ -50,6 +50,9 @@ body {
 .food-option:hover {
     color: red;
 }
+.serving-size {
+    width: 24px;
+}
 
 /* Calendar Styles */
 .rc-Month {

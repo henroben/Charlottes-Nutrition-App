@@ -27,8 +27,8 @@ class DailyTracking extends Component {
         }
     }
 
-    removeFoodEaten(ndbno, foodEaten) {
-        this.props.removeDailyFood(ndbno, foodEaten);
+    removeFoodEaten(ndbno, foodEaten, measurement, servingsize) {
+        this.props.removeDailyFood(ndbno, foodEaten, measurement, servingsize);
     }
 
     displayFoodEaten(foodEaten) {
@@ -42,7 +42,7 @@ class DailyTracking extends Component {
                                 </div>
                                 <div className="col-xs-3">
                                 <span className="pull-right">
-                                    <i className="fa fa-cog fa-lg fa-fw"></i> <i className="fa fa-times fa-lg fa-fw food-option" onClick={this.removeFoodEaten.bind(this, food.ndbno, this.props.foodeaten)}></i>
+                                    <i className="fa fa-cog fa-lg fa-fw"></i> <i className="fa fa-times fa-lg fa-fw food-option" onClick={this.removeFoodEaten.bind(this, food.ndbno, this.props.foodeaten, food.measurement, food.servingsize)}></i>
                                 </span>
                                 </div>
                             </div>

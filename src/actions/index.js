@@ -131,7 +131,7 @@ export function startLogout() {
 
 }
 
-export function addDailyFood(ndbno) {
+export function addDailyFood(ndbno, measure, serving) {
 
     return function(dispatch) {
         axios.get(`${ROOT_URL}/reports/?ndbno=${ndbno}&format=json${API_KEY}`)
@@ -143,13 +143,17 @@ export function addDailyFood(ndbno) {
                     payload: {
                         ds: result.data.report.food.ds,
                         name: result.data.report.food.name,
-                        ndbno: result.data.report.food.ndbno
+                        ndbno: result.data.report.food.ndbno,
+                        measurement: measure,
+                        servingsize: serving
                     }
                 });
                 // add nutrients to daily total
                 dispatch({
                     type: ADD_DAILY_NUTRIENTS,
-                    payload: result.data.report.food.nutrients
+                    payload: result.data.report.food.nutrients,
+                    measurement: measure,
+                    servingsize: serving
                 });
             })
             .catch((error) => {
@@ -160,7 +164,7 @@ export function addDailyFood(ndbno) {
 
 }
 
-export function removeDailyFood(ndbno, dailyFood) {
+export function removeDailyFood(ndbno, dailyFood, measurement, servingsize) {
 
     return function(dispatch) {
         axios.get(`${ROOT_URL}/reports/?ndbno=${ndbno}&format=json${API_KEY}`).then((result) => {
@@ -177,7 +181,9 @@ export function removeDailyFood(ndbno, dailyFood) {
             // remove food nutrients from daily total
             dispatch({
                 type: REMOVE_DAILY_NUTRIENTS,
-                payload: result.data.report.food.nutrients
+                payload: result.data.report.food.nutrients,
+                measurement: measurement,
+                servingsize: servingsize
             });
         }).catch((error) => {
             console.warn('error:', error);
