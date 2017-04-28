@@ -60,7 +60,7 @@ export default function(state = INITIAL_STATE, action) {
 
                     if(currentNutrient) {
                         // if current nutrient is present, add the two values together
-                        currentTotalNutrient.measures[0].value = (parseInt(currentNutrient.measures[0].value) + parseInt(currentTotalNutrient.measures[0].value));
+                        currentTotalNutrient.measures[0].value = (parseInt(currentNutrient.measures[action.measurement].value * action.servingsize) + parseInt(currentTotalNutrient.measures[0].value));
                     } else {
                         // nutrient not found, so must be new one
                         currentTotal.push()
@@ -89,7 +89,7 @@ export default function(state = INITIAL_STATE, action) {
 
                 if(currentNutrient) {
                     // if current nutrient is present, add the two values together
-                    currentTotalNutrient.measures[0].value = parseInt(currentTotalNutrient.measures[0].value) - (parseInt(currentNutrient.measures[0].value) );
+                    currentTotalNutrient.measures[0].value = parseInt(currentTotalNutrient.measures[0].value) - (parseInt(currentNutrient.measures[action.measurement].value * action.servingsize) );
                 }
             });
             return({
