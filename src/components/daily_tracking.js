@@ -132,7 +132,7 @@ class DailyTracking extends Component {
                             <a href="#" className="nextMonth" onClick={this.handleNextMonth.bind(this)}>
                                 Next Month <i className="fa fa-arrow-right"></i>
                             </a>
-                            <Month date={moment(this.state.navdate).startOf('day').add(1, 'days')} mods={
+                            <Month date={moment(this.state.navdate).startOf('day')} mods={
                                 [
                                     {
                                         date: moment(this.props.trackingDate || today),

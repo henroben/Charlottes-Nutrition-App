@@ -20,7 +20,7 @@ class DisplayNutrientData extends Component {
                     <li className="list-group-item" key={nutrient.nutrient_id}>
                         <div className="row">
                             <div className="col-xs-7">{nutrient.name}</div>
-                            <div className="col-xs-3">{nutrient.measures[this.state.measureselected].value * this.state.servingamount}</div>
+                            <div className="col-xs-3">{parseFloat(nutrient.measures[this.state.measureselected].value * this.state.servingamount).toFixed(2)}</div>
                             <div className="col-xs-2">{nutrient.unit}</div>
                         </div>
                     </li>
@@ -33,7 +33,7 @@ class DisplayNutrientData extends Component {
         console.log('measures', measures);
         return measures.map((measure, index) => {
             return(
-                <option value={index} key={index}>{measure.label} ({measure.value} {measure.eunit})</option>
+                <option value={index} key={index}>{measure.label} ({measure.eqv} {measure.eunit})</option>
             );
         })
     }

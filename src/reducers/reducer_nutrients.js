@@ -1,4 +1,4 @@
-import { FETCH_NUTRIENTS } from '../actions/index';
+import { FETCH_NUTRIENTS, UNAUTH_USER } from '../actions/index';
 
 const INITIAL_STATE = {
     nutrients: null
@@ -11,6 +11,10 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 nutrients: action.payload.data
+            }
+        case UNAUTH_USER:
+            return {
+                nutrients: null
             }
         default:
             return state;

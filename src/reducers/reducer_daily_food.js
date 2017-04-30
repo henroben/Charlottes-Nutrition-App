@@ -1,4 +1,11 @@
-import { ADD_DAILY_FOOD, ADD_DAILY_NUTRIENTS, SAVE_DAILY_DATA, READ_DAILY_DATA, ADD_TRACKABLE_ITEM, REMOVE_DAILY_FOOD, REMOVE_DAILY_NUTRIENTS } from '../actions/index';
+import { ADD_DAILY_FOOD,
+    ADD_DAILY_NUTRIENTS,
+    SAVE_DAILY_DATA,
+    READ_DAILY_DATA,
+    ADD_TRACKABLE_ITEM,
+    REMOVE_DAILY_FOOD,
+    REMOVE_DAILY_NUTRIENTS,
+    UNAUTH_USER } from '../actions/index';
 import _ from 'lodash';
 
 const INITIAL_STATE = {
@@ -95,6 +102,14 @@ export default function(state = INITIAL_STATE, action) {
             return({
                 ...state,
                 nutrientitems: currentTotal
+            });
+        case UNAUTH_USER:
+            return({
+                date: null,
+                fooditems: [],
+                ref: null,
+                trackableitems: [],
+                nutrientitems: []
             });
         default:
             return state;

@@ -1,4 +1,4 @@
-import { FETCH_FOOD, FETCH_ERROR } from '../actions/index';
+import { FETCH_FOOD, FETCH_ERROR, UNAUTH_USER } from '../actions/index';
 
 const INITIAL_STATE = {
     food: null
@@ -12,6 +12,11 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 food: action.payload.data,
+                error: null
+            };
+        case UNAUTH_USER:
+            return {
+                food: null,
                 error: null
             }
         case FETCH_ERROR:

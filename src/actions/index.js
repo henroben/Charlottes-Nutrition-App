@@ -22,6 +22,7 @@ export const UPDATE_DAILY_DATA = 'UPDATE_DAILY_DATA';
 export const READ_DAILY_DATA = 'READ_DAILY_DATA';
 
 export const ADD_TRACKABLE_ITEM = 'ADD_TRACKABLE_ITEM';
+export const CLEAR_DAILY_TRACKING = 'CLEAR_DAILY_TRACKING';
 
 const API_KEY = '&api_key=7sb5eUXLMkVqMfjjLVhkpzXEZzwuwADsCVxUzIeq';
 let maxResults = 6;
@@ -122,12 +123,14 @@ export function startLogin(authMethod) {
 }
 
 export function startLogout() {
-    const request = firebase.auth().signOut();
+    return function (dispatch) {
+        const request = firebase.auth().signOut();
+        dispatch({
+            type: UNAUTH_USER,
+            payload: request
+        });
+    }
 
-    return {
-        type: UNAUTH_USER,
-        payload: request
-    };
 
 }
 
