@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import AddToToday from '../add_to_today';
 import { fetchNutrients } from '../../actions/index';
+import _ from 'lodash';
 
 class DisplayNutrientData extends Component {
 
@@ -13,7 +14,18 @@ class DisplayNutrientData extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.nutrients.nutrients.report) {
+            if(nextProps.nutrients.nutrients.report.food.nutrients[0].measures.length < (this.state.measureselected + 1)) {
+                this.setState({
+                    measureselected: 0
+                });
+            }
+        }
+    }
+
     displayNutrients(nutrients) {
+
         if(nutrients !== null) {
             return nutrients.map((nutrient) => {
                 return(
@@ -38,7 +50,9 @@ class DisplayNutrientData extends Component {
         })
     }
     displayMeasures(measures) {
+
         let measuredefault = this.state.servingamount;
+
         return(
             <div className="form-group">
                 Serving(s):

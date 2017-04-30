@@ -9,10 +9,18 @@ export default class DisplayDailyNutrients extends Component {
             return nutrient.group === 'Minerals';
         });
         minerals.map((mineral) => {
-            mineralsForChart.push({
-                name: mineral.name,
-                mg: parseFloat(mineral.measures[0].value)
-            });
+            if(mineral.unit === 'mg') {
+                mineralsForChart.push({
+                    name: mineral.name,
+                    mg: parseFloat(mineral.measures[0].value)
+                });
+            } else if(mineral.unit === 'µg') {
+                mineralsForChart.push({
+                    name: mineral.name,
+                    mg: parseInt(mineral.measures[0].value / 1000)
+                });
+            }
+
         });
         console.log('minerals', mineralsForChart);
         return mineralsForChart;
@@ -23,10 +31,19 @@ export default class DisplayDailyNutrients extends Component {
             return vitamin.group === 'Vitamins';
         });
         vitamins.map((vitamin) => {
-            vitaminsForChart.push({
-                name: vitamin.name,
-                mg: parseInt(vitamin.measures[0].value)
-            });
+            if(vitamin.unit === 'mg') {
+                vitaminsForChart.push({
+                    name: vitamin.name,
+                    mg: parseInt(vitamin.measures[0].value)
+                });
+            } else if (vitamin.unit === 'µg') {
+                console.log(`vitamin ${vitamin.name} has ${(vitamin.measures[0].value)} µg`);
+                console.log(`vitamin ${vitamin.name} has ${(vitamin.measures[0].value / 1000)} mg`);
+                vitaminsForChart.push({
+                    name: vitamin.name,
+                    mg: parseInt(vitamin.measures[0].value / 1000)
+                });
+            }
         });
         return vitaminsForChart;
     }
@@ -36,10 +53,18 @@ export default class DisplayDailyNutrients extends Component {
             return lipid.group === 'Lipids';
         });
         lipids.map((lipid) => {
-            lipidsForChart.push({
-                name: lipid.name,
-                g: parseInt(lipid.measures[0].value)
-            });
+            if(lipid.unit === 'g') {
+                lipidsForChart.push({
+                    name: lipid.name,
+                    g: parseInt(lipid.measures[0].value)
+                });
+            } else if (lipid.unit === 'mg') {
+                lipidsForChart.push({
+                    name: lipid.name,
+                    g: parseInt(lipid.measures[0].value / 1000)
+                });
+            }
+
         });
         return lipidsForChart;
     }
@@ -49,10 +74,19 @@ export default class DisplayDailyNutrients extends Component {
             return nutrient.group === 'Proximates' && nutrient.unit !== 'kcal';
         });
         proximates.map((proximate) => {
-            proximatesForChart.push({
-                name: proximate.name,
-                g: parseInt(proximate.measures[0].value)
-            });
+
+            if(proximate.unit === 'g') {
+                proximatesForChart.push({
+                    name: proximate.name,
+                    g: parseInt(proximate.measures[0].value)
+                });
+            } else if (proximate.unit === 'mg') {
+                proximatesForChart.push({
+                    name: proximate.name,
+                    g: parseInt(proximate.measures[0].value / 1000)
+                });
+            }
+
         });
         return proximatesForChart;
     }
