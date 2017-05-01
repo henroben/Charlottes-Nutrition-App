@@ -67,7 +67,7 @@ export default function(state = INITIAL_STATE, action) {
 
                     if(currentNutrient) {
                         // if current nutrient is present, add the two values together
-                        currentTotalNutrient.measures[0].value = (parseInt(currentNutrient.measures[action.measurement].value * action.servingsize) + parseInt(currentTotalNutrient.measures[0].value));
+                        currentTotalNutrient.measures[0].value = ((parseFloat(currentNutrient.measures[action.measurement].value * action.servingsize) + parseFloat(currentTotalNutrient.measures[0].value))).toFixed(2);
                     } else {
                         // nutrient not found, so must be new one
                         currentTotal.push()

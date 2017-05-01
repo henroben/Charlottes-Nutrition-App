@@ -15,7 +15,7 @@ class DisplayNutrientData extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.nutrients.nutrients.report) {
+        if(nextProps.nutrients.nutrients) {
             if(nextProps.nutrients.nutrients.report.food.nutrients[0].measures.length < (this.state.measureselected + 1)) {
                 this.setState({
                     measureselected: 0
