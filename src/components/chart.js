@@ -15,6 +15,10 @@ export default (props) => {
                             <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
                             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
                         </linearGradient>
+                        <linearGradient id="colorMax" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#ff0000" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#ff0000" stopOpacity={0}/>
+                        </linearGradient>
                     </defs>
                     <XAxis dataKey="name"/>
                     <YAxis/>
@@ -22,6 +26,7 @@ export default (props) => {
                     <Tooltip/>
                     <Area type='monotone' dataKey={props.units} stroke='#8884d8' fillOpacity={1} fill="url(#colorG)" />
                     <Area type='monotone' dataKey={props.rda} stroke='#82ca9d' fillOpacity={1} fill="url(#colorRDA)" />
+                    <Area type='monotone' dataKey={props.max} stroke='#ff0000' fillOpacity={1} fill="url(#colorMax)" />
                 </AreaChart>
         </div>
     );

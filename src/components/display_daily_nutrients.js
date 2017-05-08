@@ -16,24 +16,35 @@ export default class DisplayDailyNutrients extends Component {
                     269: 120 // total sugars
                 },
                 minerals: {
-                    301: 1000, // calcium
-                    303: 10, // iron
-                    304: 420,
+                    301: 1000,  // calcium
+                    303: 10,    // iron
+                    304: 420,   // Magnesium
                     305: 700,
                     306: 4700,
                     307: 1500,
                     309: 15
                 },
                 vitamins: {
-                    320: 1, //Vitamin A, RAE
-                    401: 90, // Vit C
-                    404: 1.5, // Thiamin
-                    405: 1.7, // Riboflavin
-                    406: 19, // Niacin
-                    415: 2, // Vitamin B-6
-                    418: 0.002, // Vitamin B-12
-                    435: 0.02, // Folate, DFE
-                    430: 0.008 // Vitamin K (phylloquinone)
+                    320: 1,     // Vitamin A, RAE
+                    323: 15,    // Vitamin E (alpha-tocopherol)
+                    328: 0.005,     // Vitamin D (D2 + D3)
+                    401: 90,    // Vit C
+                    404: 1.5,   // Thiamin
+                    405: 1.7,   // Riboflavin
+                    406: 19,    // Niacin
+                    415: 2,     // Vitamin B-6
+                    418: 0.0024, // Vitamin B-12
+                    435: 0.02,  // Folate, DFE
+                    430: 0.12   // Vitamin K (phylloquinone)
+                },
+                vitaminslimit: {
+                    320: 3,     // Vitamin A, RAE
+                    323: 1000,  // Vitamin E (alpha-tocopherol)
+                    328: 0.05,     // Vitamin D (D2 + D3)
+                    401: 2000,  // Vit C
+                    406: 35,    // Niacin
+                    415: 100,   // Vitamin B-6
+                    435: 1,     // Folate, DFE
                 },
                 lipids: {
                     601: 0.2, // Cholesterol
@@ -80,7 +91,8 @@ export default class DisplayDailyNutrients extends Component {
                 vitaminsForChart.push({
                     name: vitamin.name,
                     mg: parseFloat(vitamin.measures[0].value),
-                    rda: this.state.rda.vitamins[vitamin.nutrient_id]
+                    rda: this.state.rda.vitamins[vitamin.nutrient_id],
+                    max: this.state.rda.vitaminslimit[vitamin.nutrient_id]
                 });
             } else if (vitamin.unit === 'µg') {
                 console.log(`vitamin ${vitamin.name} has ${(vitamin.measures[0].value)} µg`);
@@ -88,7 +100,8 @@ export default class DisplayDailyNutrients extends Component {
                 vitaminsForChart.push({
                     name: vitamin.name,
                     mg: parseFloat(vitamin.measures[0].value / 1000),
-                    rda: this.state.rda.vitamins[vitamin.nutrient_id]
+                    rda: this.state.rda.vitamins[vitamin.nutrient_id],
+                    max: this.state.rda.vitaminslimit[vitamin.nutrient_id]
                 });
             }
         });
