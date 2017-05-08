@@ -20,6 +20,7 @@ class App extends Component {
                             <img src={firebase.auth().currentUser.photoURL} alt={firebase.auth().currentUser.displayName} className="photoID" /> {firebase.auth().currentUser.displayName}
                         </Navbar.Text>
                     </li>
+                    <LinkContainer to="/settings" activeClassName="active"><NavItem><i className="fa fa-cog fa-lg fa-fw"></i> Settings</NavItem></LinkContainer>
                     <li>
                         <a href="#" onClick={this.onSignOut.bind(this)}><span className="glyphicon glyphicon-user"></span> Sign Out</a>
                     </li>

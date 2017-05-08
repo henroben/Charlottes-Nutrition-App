@@ -8,6 +8,7 @@ import SignUp from './components/signup';
 import DisplaySignIn from './components/display_signin';
 import DisplaySearchFood from './components/food_search/display_search_food';
 import Dashboard from './components/dashboard';
+import UserSettings from './components/user_settings';
 
 let requireLogin = (nextState, replace, next) => {
     "use strict";
@@ -35,6 +36,7 @@ export default (
         <Route path="/signin" component={DisplaySignIn} />
         <Route path="/foodsearch" component={DisplaySearchFood} onEnter={requireLogin} />
         <Route path="/about" component={DisplayHomePage} />
+        <Route path="/settings" component={UserSettings} onEnter={requireLogin} />
         {/*<Route path="posts/:id" component={PostsShow} />*/}
 
     </Route>
